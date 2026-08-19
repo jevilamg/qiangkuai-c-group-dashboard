@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>2026年强快县区C组争先榜 · 聚焦坪山（3-7月趋势）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --green-dark:#0b3d2e; --green-main:#1a6b4a; --green-mid:#2d8c63;
+  --green-light:#3cb371; --green-pale:#d4f0e0; --green-bg:#f0f7f3;
+  --accent:#e63946; --accent-pale:#fce8ea; --gold:#d4a017;
+  --blue:#2563eb; --blue-pale:#dbeafe;
+  --bg:#eef4f1; --card:#fff; --text:#14241c; --text-sub:#5c7a6e;
+  --radius:14px; --shadow:0 2px 16px rgba(11,61,46,0.07);
+}
+body { font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); min-height:100vh; -webkit-text-size-adjust:100%; }
+
+.header { background:linear-gradient(135deg,var(--green-dark) 0%,var(--green-main) 60%,var(--green-mid) 100%); color:#fff; padding:32px 36px 28px; position:relative; overflow:hidden; }
+.header::after { content:""; position:absolute; top:-40px; right:-40px; width:240px; height:240px; background:radial-gradient(circle,rgba(60,179,113,0.18) 0%,transparent 70%); border-radius:50%; }
+.header::before { content:""; position:absolute; bottom:-60px; left:20%; width:300px; height:120px; background:radial-gradient(ellipse,rgba(60,179,113,0.1) 0%,transparent 70%); border-radius:50%; }
+.header h1 { font-size:25px; font-weight:700; letter-spacing:1px; position:relative; z-index:1; }
+.header .sub { font-size:14px; opacity:.82; margin-top:8px; position:relative; z-index:1; }
+.header .meta { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; position:relative; z-index:1; }
+.header .badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.22); border-radius:22px; padding:5px 14px; font-size:12px; }
+.header .badge .dot { width:7px; height:7px; border-radius:50%; background:#3cb371; }
+.header .badge.hl { background:rgba(230,57,70,.28); border-color:rgba(255,180,180,.35); }
+.header .badge.hl .dot { background:#ff8a8a; }
+.header .badge.gold { background:rgba(212,160,23,.25); border-color:rgba(255,215,100,.35); }
+.header .badge.gold .dot { background:#ffd700; }
+
+.container { max-width:1260px; margin:0 auto; padding:22px 24px 44px; }
+
+.kpi-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-bottom:24px; }
+.kpi-card { background:var(--card); border-radius:var(--radius); padding:18px 14px; box-shadow:var(--shadow); text-align:center; position:relative; overflow:hidden; }
+.kpi-card.ps { background:linear-gradient(135deg,#0b3d2e,#1a6b4a); color:#fff; }
+.kpi-card.ps .label,.kpi-card.ps .value,.kpi-card.ps .sub { color:#fff; }
+.kpi-card.ps .label { opacity:.75; } .kpi-card.ps .sub { opacity:.7; }
+.kpi-card .label { font-size:11px; color:var(--text-sub); margin-bottom:6px; }
+.kpi-card .value { font-size:28px; font-weight:800; color:var(--green-dark); line-height:1.1; }
+.kpi-card .value .unit { font-size:13px; font-weight:500; color:var(--text-sub); margin-left:2px; }
+.kpi-card.ps .value .unit { color:rgba(255,255,255,.7); }
+.kpi-card .sub { font-size:11px; color:var(--text-sub); margin-top:5px; }
+.kpi-card .sub.up { color:var(--accent); font-weight:600; }
+.kpi-card.ps .sub.up { color:#ff9a9a; }
+.kpi-card .sub.good { color:var(--green-main); font-weight:600; }
+.kpi-card .trend { font-size:10px; color:var(--text-sub); margin-top:4px; }
+.kpi-card.ps .trend { opacity:.65; }
+.kpi-card .bar-bg { width:100%; height:4px; background:#e9efe9; border-radius:2px; margin-top:8px; }
+.kpi-card .bar-fill { height:4px; border-radius:2px; background:var(--green-light); }
+.kpi-card.ps .bar-bg { background:rgba(255,255,255,.15); }
+.kpi-card.ps .bar-fill { background:#3cb371; }
+
+.section-title { font-size:17px; font-weight:700; color:var(--green-dark); margin:28px 0 14px; display:flex; align-items:center; gap:10px; }
+.section-title::before { content:""; width:5px; height:20px; background:var(--green-light); border-radius:3px; flex-shrink:0; }
+.section-title .tag { font-size:12px; font-weight:500; color:var(--text-sub); background:var(--green-pale); padding:2px 10px; border-radius:10px; }
+
+.chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+.chart-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:20px; }
+.chart-card { background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); }
+.chart-card .title { font-size:14px; font-weight:600; color:var(--green-dark); margin-bottom:4px; }
+.chart-card .desc { font-size:12px; color:var(--text-sub); margin-bottom:14px; }
+.chart-wrap { position:relative; height:300px; }
+.chart-wrap.radar { height:360px; }
+.chart-wrap.tall { height:340px; }
+
+.table-card { background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); margin-bottom:20px; }
+.table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { text-align:center; padding:10px 8px; background:var(--green-pale); color:var(--green-dark); font-weight:600; border-radius:6px; font-size:12px; white-space:nowrap; }
+thead th:first-child,thead th:nth-child(2) { text-align:left; }
+tbody td { padding:9px 8px; border-bottom:1px solid #eef2f0; text-align:center; white-space:nowrap; }
+tbody td:first-child,tbody td:nth-child(2) { text-align:left; }
+tbody tr:hover { background:#f8faf9; }
+tbody tr.ps { background:linear-gradient(90deg,#d4f0e0 0%,#eef7f1 100%); font-weight:600; }
+tbody tr.ps:hover { background:#c9e9d8; }
+.rank-badge { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; font-size:11px; font-weight:700; }
+.rank-badge.r1 { background:#ffd700; color:#7a5c00; }
+.rank-badge.r2 { background:#c0c0c0; color:#444; }
+.rank-badge.r3 { background:#cd7f32; color:#fff; }
+.rank-badge.r0 { background:#e9ecef; color:#888; }
+.score-bar { display:inline-block; width:56px; height:6px; background:#e9ecef; border-radius:3px; vertical-align:middle; margin-right:6px; overflow:hidden; }
+.score-bar .fill { height:6px; border-radius:3px; }
+.gap-pos { color:var(--green-main); font-weight:600; }
+.gap-neg { color:var(--accent); font-weight:600; }
+.trend-up { color:var(--green-main); } .trend-dn { color:var(--accent); }
+
+.analysis-card { background:linear-gradient(135deg,#f0f7f4 0%,#e8f5ee 100%); border-left:4px solid var(--green-mid); border-radius:10px; padding:18px 22px; margin-bottom:16px; }
+.analysis-card .ah { font-size:15px; font-weight:700; color:var(--green-dark); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.analysis-card .ah .icon { width:22px; height:22px; border-radius:50%; background:var(--green-main); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.analysis-card.warn { background:linear-gradient(135deg,#fef5f5 0%,#fce8ea 100%); border-left-color:var(--accent); }
+.analysis-card.warn .ah { color:var(--accent); }
+.analysis-card.warn .ah .icon { background:var(--accent); }
+.analysis-card.info { background:linear-gradient(135deg,#f0f4ff 0%,#e0e7ff 100%); border-left-color:var(--blue); }
+.analysis-card.info .ah { color:var(--blue); }
+.analysis-card.info .ah .icon { background:var(--blue); }
+.analysis-card .item { font-size:13px; color:var(--text); line-height:1.8; margin-bottom:8px; padding-left:14px; position:relative; }
+.analysis-card .item::before { content:""; position:absolute; left:0; top:11px; width:5px; height:5px; border-radius:50%; background:var(--green-mid); }
+.analysis-card.warn .item::before { background:var(--accent); }
+.analysis-card.info .item::before { background:var(--blue); }
+.analysis-card .item strong { color:var(--green-dark); }
+.analysis-card.warn .item strong { color:var(--accent); }
+.analysis-card.info .item strong { color:var(--blue); }
+.analysis-card .item .num { color:var(--accent); font-weight:700; }
+.analysis-card .item .pos { color:var(--green-main); font-weight:700; }
+
+.footer { text-align:center; font-size:12px; color:var(--text-sub); padding:20px 0 10px; line-height:1.7; }
+
+@media(max-width:960px) {
+  .kpi-grid { grid-template-columns:repeat(3,1fr); }
+  .chart-grid,.chart-grid-3 { grid-template-columns:1fr; }
+}
+@media(max-width:600px) {
+  .header { padding:22px 16px 18px; }
+  .header h1 { font-size:18px; }
+  .header .sub { font-size:12px; }
+  .header .badge { font-size:11px; padding:4px 10px; }
+  .container { padding:14px 10px 30px; }
+  .kpi-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .kpi-card { padding:14px 10px; }
+  .kpi-card .value { font-size:22px; }
+  .section-title { font-size:15px; margin:18px 0 10px; }
+  .chart-card,.table-card { padding:14px; }
+  .chart-wrap { height:260px; }
+  .chart-wrap.radar { height:280px; }
+  table { font-size:12px; }
+  thead th { padding:8px 6px; }
+  tbody td { padding:7px 6px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>2026年强快县区劳动竞赛 · C组争先榜</h1>
+  <div class="sub">聚焦深圳坪山 · C组12区县 · 3月-7月趋势追踪 · 最新数据：2026年1-7月累计</div>
+  <div class="meta">
+    <span class="badge hl"><span class="dot"></span>强县榜 7月第3 · 3月曾第2</span>
+    <span class="badge hl"><span class="dot"></span>快县榜 7月第2 · 5-6月连续第1</span>
+    <span class="badge gold"><span class="dot"></span>特快增幅 连续5月满分</span>
+    <span class="badge"><span class="dot"></span>收入增幅 6-7月满分</span>
+    <span class="badge"><span class="dot"></span>强快双榜上榜</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- KPI -->
+  <div class="kpi-grid">
+    <div class="kpi-card ps">
+      <div class="label">强县榜排名（7月）</div>
+      <div class="value">3<span class="unit">/12</span></div>
+      <div class="sub">总分 68.14</div>
+      <div class="trend">3月2→4月6→5月3→6月4→7月3</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div>
+    </div>
+    <div class="kpi-card ps">
+      <div class="label">快县榜排名（7月）</div>
+      <div class="value">2<span class="unit">/12</span></div>
+      <div class="sub">总分 61.76</div>
+      <div class="trend">3月1→4月2→5月1→6月1→7月2</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:83%"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">强县总分趋势</div>
+      <div class="value" style="color:var(--green-main)">68.1<span class="unit">分</span></div>
+      <div class="sub good">较4月低谷+8.86分</div>
+      <div class="trend">64.9→59.3→67.2→65.0→68.1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">快县总分趋势</div>
+      <div class="value" style="color:var(--green-main)">61.8<span class="unit">分</span></div>
+      <div class="sub">5-6月峰值77分</div>
+      <div class="trend">56.3→55.9→76.4→77.1→61.8</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">特快增幅</div>
+      <div class="value" style="color:var(--gold)">10.0<span class="unit">/10</span></div>
+      <div class="sub good">连续5月满分 · C组第1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">收入增幅</div>
+      <div class="value" style="color:var(--gold)">12.0<span class="unit">/12</span></div>
+      <div class="sub good">6-7月连续满分</div>
+    </div>
+  </div>
+
+  <!-- 月度排名趋势 -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="title">C组月度排名趋势 · 3月-7月</div>
+      <div class="desc">坪山快县榜持续前2（5-6月第1），强县榜4月跌至第6后回升至第3</div>
+      <div class="chart-wrap"><canvas id="rankTrendChart" width="1116" height="600" style="display: block; box-sizing: border-box; height: 300px; width: 558px;"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="title">坪山月度总分趋势 · 3月-7月</div>
+      <div class="desc">快县5-6月爆发至77分，强县稳步攀升至68分创5月新高</div>
+      <div class="chart-wrap"><canvas id="scoreTrendChart" width="1116" height="600" style="display: block; box-sizing: border-box; height: 300px; width: 558px;"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 7月C组排名 -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="title">7月强县榜 · C组总分排名</div>
+      <div class="desc">坪山68.14分排名第3，距第2名阳春仅差2.10分，距第1罗定差4.68分</div>
+      <div class="chart-wrap"><canvas id="strongRank7" width="1116" height="600" style="display: block; box-sizing: border-box; height: 300px; width: 558px;"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="title">7月快县榜 · C组总分排名</div>
+      <div class="desc">坪山61.76分排名第2，被揭东（63.42）反超，领先第3花都8.96分</div>
+      <div class="chart-wrap"><canvas id="fastRank7" width="1116" height="600" style="display: block; box-sizing: border-box; height: 300px; width: 558px;"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 7月雷达图 -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="title">7月强县指标雷达 · 坪山 vs C组均值</div>
+      <div class="desc">寄递/特快/融资E为绝对强项，AUM/价值客户为主要短板</div>
+      <div class="chart-wrap radar"><canvas id="strongRadar7" width="1116" height="720" style="display: block; box-sizing: border-box; height: 360px; width: 558px;"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="title">7月快县指标雷达 · 坪山 vs C组均值</div>
+      <div class="desc">特快增幅满分碾压均值，收入增幅满分；AUM增幅偏弱</div>
+      <div class="chart-wrap radar"><canvas id="fastRadar7" width="1116" height="720" style="display: block; box-sizing: border-box; height: 360px; width: 558px;"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 关键指标月度趋势 -->
+  <div class="section-title">坪山强县关键指标 · 5个月走势 <span class="tag">3月→7月</span></div>
+  <div class="chart-card" style="margin-bottom:20px">
+    <div class="desc">寄递/特快稳定高位，商户/农产品寄递持续改善，快递包裹逐月下滑，AUM波动较大</div>
+    <div class="chart-wrap tall"><canvas id="strongTrendChart" width="2344" height="680" style="display: block; box-sizing: border-box; height: 340px; width: 1172px;"></canvas></div>
+  </div>
+
+  <div class="section-title">坪山快县关键指标 · 5个月走势 <span class="tag">3月→7月</span></div>
+  <div class="chart-card" style="margin-bottom:20px">
+    <div class="desc">特快增幅连续满分，收入增幅持续攀升至满分；利润增幅5-6月爆发后7月回落，寄递增幅下行</div>
+    <div class="chart-wrap tall"><canvas id="fastTrendChart" width="2344" height="680" style="display: block; box-sizing: border-box; height: 340px; width: 1172px;"></canvas></div>
+  </div>
+
+  <!-- 7月得分明细表 -->
+  <div class="section-title">7月强县榜 · 坪山各项得分明细 <span class="tag">vs C组均值 · 近3月趋势</span></div>
+  <div class="table-card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>指标</th><th>满分</th><th>坪山7月</th><th>C组均值</th><th>5月</th><th>6月</th><th>7月</th><th>趋势</th><th>与均值差</th></tr>
+        </thead>
+        <tbody id="strongTable7"><tr class="">
+      <td>1.利润绝对值</td><td>20</td><td><strong>10.62</strong></td><td>10.16</td>
+      <td>9.90</td><td>9.90</td>
+      <td>10.62</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.46</td>
+    </tr><tr class="ps">
+      <td>2.收入完成绝对值</td><td>12</td><td><strong>11.38</strong></td><td>10.59</td>
+      <td>11.19</td><td>11.25</td>
+      <td>11.38</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.79</td>
+    </tr><tr class="">
+      <td>4.净增AUM</td><td>10</td><td><strong>2.81</strong></td><td>5.94</td>
+      <td>3.39</td><td>3.69</td>
+      <td>2.81</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-neg">-3.13</td>
+    </tr><tr class="">
+      <td>5.金融收入规模</td><td>10</td><td><strong>5.47</strong></td><td>6.38</td>
+      <td>5.42</td><td>5.43</td>
+      <td>5.47</td><td><span style="color:#999">→</span></td>
+      <td class="gap-neg">-0.91</td>
+    </tr><tr class="ps">
+      <td>6.商户净增总资产</td><td>2.5</td><td><strong>1.35</strong></td><td>1.29</td>
+      <td>0.53</td><td>0.63</td>
+      <td>1.35</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.06</td>
+    </tr><tr class="">
+      <td>7.净增价值客户数</td><td>2.5</td><td><strong>0.72</strong></td><td>1.29</td>
+      <td>0.14</td><td>0.41</td>
+      <td>0.72</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-neg">-0.57</td>
+    </tr><tr class="ps">
+      <td>8.寄递收入</td><td>11</td><td><strong>8.97</strong></td><td>5.93</td>
+      <td>8.76</td><td>8.96</td>
+      <td>8.97</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+3.04</td>
+    </tr><tr class="ps">
+      <td>9.国内特快收入</td><td>10</td><td><strong>8.98</strong></td><td>5.77</td>
+      <td>9.26</td><td>9.24</td>
+      <td>8.98</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+3.21</td>
+    </tr><tr class="">
+      <td>10.快递包裹收入</td><td>4</td><td><strong>2.08</strong></td><td>1.45</td>
+      <td>2.24</td><td>2.10</td>
+      <td>2.08</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+0.63</td>
+    </tr><tr class="">
+      <td>11.函件+集邮+报刊</td><td>3</td><td><strong>0.57</strong></td><td>0.79</td>
+      <td>0.60</td><td>0.59</td>
+      <td>0.57</td><td><span style="color:#999">→</span></td>
+      <td class="gap-neg">-0.22</td>
+    </tr><tr class="ps">
+      <td>14.融资E年日均余额</td><td>3</td><td><strong>2.90</strong></td><td>2.25</td>
+      <td>2.90</td><td>2.83</td>
+      <td>2.90</td><td><span style="color:#999">→</span></td>
+      <td class="gap-pos">+0.65</td>
+    </tr><tr class="ps">
+      <td>15.农产品寄递收入</td><td>1</td><td><strong>0.96</strong></td><td>0.50</td>
+      <td>0.65</td><td>0.79</td>
+      <td>0.96</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.46</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-title">7月快县榜 · 坪山各项得分明细 <span class="tag">vs C组均值 · 近3月趋势</span></div>
+  <div class="table-card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>指标</th><th>满分</th><th>坪山7月</th><th>C组均值</th><th>5月</th><th>6月</th><th>7月</th><th>趋势</th><th>与均值差</th></tr>
+        </thead>
+        <tbody id="fastTable7"><tr class="ps">
+      <td>1.利润增幅</td><td>20</td><td><strong>7.16</strong></td><td>4.53</td>
+      <td>17.11</td><td>17.11</td>
+      <td>7.16</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+2.63</td>
+    </tr><tr class="ps">
+      <td>2.收入增幅</td><td>12</td><td><strong>12.00</strong></td><td>4.81</td>
+      <td>11.02</td><td>12.00</td>
+      <td>12.00</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+7.19</td>
+    </tr><tr class="">
+      <td>4.AUM规模增幅</td><td>10</td><td><strong>4.72</strong></td><td>7.99</td>
+      <td>4.88</td><td>5.90</td>
+      <td>4.72</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-neg">-3.27</td>
+    </tr><tr class="ps">
+      <td>5.金融收入增幅</td><td>10</td><td><strong>7.58</strong></td><td>4.38</td>
+      <td>7.36</td><td>8.90</td>
+      <td>7.58</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+3.20</td>
+    </tr><tr class="">
+      <td>5.商户总资产增幅</td><td>2.5</td><td><strong>1.45</strong></td><td>1.51</td>
+      <td>0.43</td><td>0.66</td>
+      <td>1.45</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-neg">-0.06</td>
+    </tr><tr class="">
+      <td>6.价值客户数增幅</td><td>2.5</td><td><strong>1.18</strong></td><td>1.63</td>
+      <td>0.17</td><td>0.60</td>
+      <td>1.18</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-neg">-0.45</td>
+    </tr><tr class="ps">
+      <td>8.寄递收入增幅</td><td>11</td><td><strong>6.31</strong></td><td>3.73</td>
+      <td>8.44</td><td>6.17</td>
+      <td>6.31</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+2.58</td>
+    </tr><tr class="ps">
+      <td>9.国内特快收入增幅</td><td>10</td><td><strong>10.00</strong></td><td>3.19</td>
+      <td>10.00</td><td>10.00</td>
+      <td>10.00</td><td><span style="color:#999">→</span></td>
+      <td class="gap-pos">+6.81</td>
+    </tr><tr class="">
+      <td>10.快递包裹收入增幅</td><td>4</td><td><strong>0.70</strong></td><td>1.40</td>
+      <td>0.69</td><td>0.77</td>
+      <td>0.70</td><td><span style="color:#999">→</span></td>
+      <td class="gap-neg">-0.70</td>
+    </tr><tr class="">
+      <td>11.集邮+函件+报刊增幅</td><td>3</td><td><strong>1.51</strong></td><td>1.06</td>
+      <td>2.01</td><td>2.12</td>
+      <td>1.51</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+0.45</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 经营分析 -->
+  <div class="section-title">经营分析与行动建议</div>
+
+  <div class="analysis-card">
+    <div class="ah"><span class="icon">✓</span> 核心优势：寄递+特快双引擎持续领先</div>
+    <div class="item">寄递收入得分 <strong>8.97/11</strong>（C组均值5.93），国内特快得分 <strong>8.98/10</strong>（均值5.77），5个月持续高位，是坪山强县榜稳居前3的基石。</div>
+    <div class="item">快县特快增幅 <strong>连续5月满分10.0</strong>，远超C组均值3.19；收入增幅6-7月连续满分12.0，增幅势头强劲。</div>
+    <div class="item">融资E年日均余额得分 <strong>2.90/3</strong>（均值2.25），5个月稳定在2.83-2.90，接近满分。</div>
+  </div>
+
+  <div class="analysis-card info">
+    <div class="ah"><span class="icon">↑</span> 持续改善：商户、价值客户、农产品寄递逐月向好</div>
+    <div class="item">商户净增总资产得分从3月0.29 <span class="pos">→ 7月1.35</span>，5个月增长4.6倍，7月已超C组均值（1.29），趋势积极。</div>
+    <div class="item">价值客户数从4月谷底0.05分 <span class="pos">→ 7月0.72分</span>，虽仍低于均值（1.29），但持续回升中。</div>
+    <div class="item">农产品寄递收入从3月0.48 <span class="pos">→ 7月0.96</span>，接近满分（1分），5个月翻倍。</div>
+  </div>
+
+  <div class="analysis-card warn">
+    <div class="ah"><span class="icon">!</span> 关键风险：AUM大幅波动、快递包裹持续下滑</div>
+    <div class="item">AUM得分从3月6.22暴跌至4月2.63，7月仅2.81（均值5.94），差距 <span class="num">-3.13分</span>，是最大失分项。3月曾有6.22的高点，说明有基础但波动剧烈，需稳定AUM揽收节奏。</div>
+    <div class="item">快递包裹收入得分从3月2.72 <span class="num">→ 7月2.08</span>，连续5个月下滑（满分4分），快县增幅也仅0.70分（均值1.40）。需警惕快递包裹业务流失。</div>
+    <div class="item">快县寄递收入增幅从3月9.38 <span class="num">→ 7月6.31</span>，持续下行，虽然特快增幅满分撑着，但整体寄递增幅在收窄。</div>
+  </div>
+
+  <div class="analysis-card">
+    <div class="ah"><span class="icon">→</span> 行动建议</div>
+    <div class="item"><strong>冲刺强县第2：</strong>7月距第2名阳春仅差2.10分。AUM单项差距就有3.13分，补齐AUM即可反超。建议重点抓跨赛AUM攻坚，参照3月6.22分的水平制定目标。</div>
+    <div class="item"><strong>稳住快县第1：</strong>7月被揭东反超丢掉第1（差1.66分）。利润增幅从5-6月的17.11降至7.16是主因，需关注利润增速放缓。维持特快满分优势+稳住利润增幅有望8月夺回第1。</div>
+    <div class="item"><strong>遏制快递包裹下滑：</strong>连续5月下行趋势明确，建议分析流失原因（价格、服务、竞品），出台专项稳量措施。</div>
+    <div class="item"><strong>保持商户/农产品寄递势头：</strong>这两项逐月改善趋势好，7月商户已超均值，继续巩固。</div>
+  </div>
+
+  <div class="footer">
+    数据来源：2026年3-7月强快县区劳动竞赛指标通报表（粤邮分联〔2026〕11号）<br>
+    C组成员（12个）：阳春、罗定、阳江城区、遂溪、兴宁、坪山、花都、湛江城区、东莞城区、潮安、福田、揭东<br>
+    看板生成时间：2026年8月19日 · 聚焦深圳坪山
+  </div>
+
+</div>
+
+<script>
+const C_GREEN='#1a6b4a', C_LIGHT='#3cb371', C_PALE='#b7e4c7', C_RED='#e63946', C_GOLD='#d4a017', C_BLUE='#2563eb', C_GREY='#b0c4b8';
+
+// 折线图：在数据点上方显示数值（整数直接显示，小数保留2位）
+const linePointLabel = {
+  id:'linePointLabel',
+  afterDatasetsDraw(chart){
+    const { ctx } = chart;
+    chart.data.datasets.forEach((ds, di)=>{
+      const meta = chart.getDatasetMeta(di);
+      meta.data.forEach((pt, i)=>{
+        const v = ds.data[i];
+        if (v === null || v === undefined) return;
+        const label = Number.isInteger(v) ? String(v) : Number(v).toFixed(2);
+        ctx.save();
+        ctx.font='bold 12px "PingFang SC", "Microsoft YaHei", sans-serif';
+        ctx.fillStyle='#14241c';
+        ctx.textAlign='center';
+        ctx.shadowColor='rgba(255,255,255,0.95)';
+        ctx.shadowBlur=4;
+        ctx.fillText(label, pt.x, pt.y - 12);
+        ctx.restore();
+      });
+    });
+  }
+};
+
+// 横向柱状图：在柱子右端显示分数
+const barEndLabel = {
+  id:'barEndLabel',
+  afterDatasetsDraw(chart){
+    const { ctx } = chart;
+    chart.data.datasets.forEach((ds, di)=>{
+      const meta = chart.getDatasetMeta(di);
+      meta.data.forEach((pt, i)=>{
+        const v = ds.data[i];
+        if (v === null || v === undefined) return;
+        ctx.save();
+        ctx.font='bold 12px "PingFang SC", "Microsoft YaHei", sans-serif';
+        ctx.fillStyle='#14241c';
+        ctx.textAlign='left';
+        ctx.fillText(Number(v).toFixed(2), pt.x + 6, pt.y + 4);
+        ctx.restore();
+      });
+    });
+  }
+};
+
+// 雷达图：pointLabels 分段绘制，实际得分加粗（原生不支持部分加粗）
+const radarBoldScore = {
+  id:'radarBoldScore',
+  afterDatasetsDraw(chart){
+    try {
+      const r = chart.scales.r;
+      if (!r) return;
+      const ctx = chart.ctx;
+      const font = '"PingFang SC", "Microsoft YaHei", sans-serif';
+      const normal = '11px ' + font;
+      const bold = 'bold 11px ' + font;
+      const n = chart.data.labels.length;
+      const center = { x: r.xCenter, y: r.yCenter };
+      const radius = r.drawingArea + 12;
+
+      const items = typeof r._pointLabelItems === 'function' ? r._pointLabelItems() : null;
+
+      chart.data.labels.forEach((raw, i)=>{
+        const lines = String(raw).split('\n');
+        const name = lines[0] || '';
+        const m = (lines[1] || '').match(/\(([\d.]+)\s*\/\s*([\d.]+)\)/);
+        if (!m) return;
+        const score = m[1], total = m[2];
+
+        let x, y, align;
+        if (items && items[i]) {
+          x = items[i].x; y = items[i].y; align = items[i].textAlign || 'center';
+        } else {
+          const angle = (i / n) * Math.PI * 2 - Math.PI / 2;
+          x = center.x + radius * Math.cos(angle);
+          y = center.y + radius * Math.sin(angle);
+          align = 'center';
+        }
+
+        const segs = [
+          { text: name + ' (', font: normal },
+          { text: score, font: bold },
+          { text: ' / ' + total + ')', font: normal }
+        ];
+        ctx.save();
+        ctx.textBaseline='middle';
+        ctx.fillStyle='#14241c';
+        let totalW = 0;
+        segs.forEach(s=>{ ctx.font = s.font; totalW += ctx.measureText(s.text).width; });
+
+        let sx;
+        if (align === 'left') sx = x;
+        else if (align === 'right') sx = x - totalW;
+        else sx = x - totalW / 2;
+
+        segs.forEach(s=>{
+          ctx.font = s.font;
+          ctx.fillText(s.text, sx, y);
+          sx += ctx.measureText(s.text).width;
+        });
+        ctx.restore();
+      });
+    } catch(e) {
+      console.error('radarBoldScore plugin error', e);
+    }
+  }
+};
+
+// ===== 月度排名趋势 =====
+new Chart(document.getElementById('rankTrendChart').getContext('2d'), {
+  type:'line',
+  plugins:[linePointLabel],
+  data:{
+    labels:['3月','4月','5月','6月','7月'],
+    datasets:[
+      { label:'强县榜排名', data:[2,6,3,4,3], borderColor:C_GREEN, backgroundColor:'rgba(26,107,74,0.1)', fill:true, tension:.3, pointRadius:5, pointBackgroundColor:C_GREEN, borderWidth:2.5 },
+      { label:'快县榜排名', data:[1,2,1,1,2], borderColor:C_RED, backgroundColor:'rgba(230,57,70,0.08)', fill:true, tension:.3, pointRadius:5, pointBackgroundColor:C_RED, borderWidth:2.5 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:12},padding:12}}, tooltip:{callbacks:{label:c=>c.dataset.label+': 第'+c.parsed.y+'名'}} },
+    scales:{
+      y:{ reverse:true, min:0, max:13, ticks:{stepSize:2,font:{size:11},callback:v=>'第'+v+'名'}, grid:{color:'#eef2f0'} },
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// ===== 月度总分趋势 =====
+new Chart(document.getElementById('scoreTrendChart').getContext('2d'), {
+  type:'line',
+  plugins:[linePointLabel],
+  data:{
+    labels:['3月','4月','5月','6月','7月'],
+    datasets:[
+      { label:'强县总分', data:[64.87,59.28,67.19,64.97,68.14], borderColor:C_GREEN, backgroundColor:'rgba(26,107,74,0.1)', fill:true, tension:.3, pointRadius:5, pointBackgroundColor:C_GREEN, borderWidth:2.5 },
+      { label:'快县总分', data:[56.34,55.89,76.42,77.13,61.76], borderColor:C_RED, backgroundColor:'rgba(230,57,70,0.08)', fill:true, tension:.3, pointRadius:5, pointBackgroundColor:C_RED, borderWidth:2.5 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:12},padding:12}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+'分'}} },
+    scales:{
+      y:{ min:50, max:82, ticks:{font:{size:11},callback:v=>v+'分'}, grid:{color:'#eef2f0'} },
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// ===== 7月C组排名柱状图 =====
+function rankChart(id, data, desc) {
+  // 传入数据已按总分从高到低排列；横向柱状图首项显示在顶部，直接使用即可
+  const sorted = [...data];
+  new Chart(document.getElementById(id).getContext('2d'), {
+    type:'bar',
+    plugins:[barEndLabel],
+    data:{ labels:sorted.map(d=>d.name), datasets:[{ data:sorted.map(d=>d.score), backgroundColor:sorted.map(d=>d.name==='坪山'?C_RED:C_GREEN), borderRadius:5, maxBarThickness:30 }] },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>'总分: '+c.parsed.x.toFixed(2)}} },
+      scales:{
+        x:{ beginAtZero:true, grid:{color:'#eef2f0'}, ticks:{font:{size:11}} },
+        y:{ ticks:{font:{size:12},callback:function(v,i){const n=sorted[i].name;return n==='坪山'?'▶ '+n:n;}}, grid:{display:false} }
+      }
+    }
+  });
+}
+rankChart('strongRank7', [
+  {name:'罗定',score:72.82},{name:'阳春',score:70.24},{name:'坪山',score:68.14},
+  {name:'兴宁',score:66.11},{name:'阳江城区',score:65.16},{name:'花都',score:64.76},
+  {name:'遂溪',score:64.26},{name:'湛江城区',score:61.94},{name:'福田',score:59.30},
+  {name:'东莞城区',score:55.81},{name:'揭东',score:55.66},{name:'潮安',score:55.11}
+]);
+rankChart('fastRank7', [
+  {name:'揭东',score:63.42},{name:'坪山',score:61.76},{name:'花都',score:52.80},
+  {name:'福田',score:47.29},{name:'罗定',score:42.38},{name:'潮安',score:39.37},
+  {name:'遂溪',score:38.91},{name:'兴宁',score:38.83},{name:'阳江城区',score:32.47},
+  {name:'湛江城区',score:30.47},{name:'阳春',score:27.05},{name:'东莞城区',score:25.64}
+]);
+
+// ===== 7月雷达图 =====
+function radar(id, labels, psData, avgData, maxData) {
+  new Chart(document.getElementById(id).getContext('2d'), {
+    type:'radar',
+    plugins:[radarBoldScore],
+    data:{ labels:labels, datasets:[
+      { label:'坪山', data:psData, borderColor:C_RED, backgroundColor:'rgba(230,57,70,0.12)', pointBackgroundColor:C_RED, pointRadius:4, borderWidth:2 },
+      { label:'C组均值', data:avgData, borderColor:C_GREEN, backgroundColor:'rgba(26,107,74,0.08)', pointBackgroundColor:C_GREEN, pointRadius:3, borderWidth:2, borderDash:[5,4] }
+    ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{position:'bottom',labels:{font:{size:12},padding:14}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.r.toFixed(2)+'分'}} },
+      scales:{ r:{ beginAtZero:true, suggestedMax:Math.max(...maxData), grid:{color:'#e0e8e4'}, angleLines:{color:'#e0e8e4'}, pointLabels:{display:false}, ticks:{display:false,stepSize:2} } }
+    }
+  });
+}
+radar('strongRadar7',
+  ['利润\n(10.62/20)','收入\n(11.38/12)','AUM\n(2.81/10)','金融收入\n(5.47/10)','商户\n(1.35/2.5)','价值客户\n(0.72/2.5)','寄递\n(8.97/11)','特快\n(8.98/10)','快递包裹\n(2.08/4)','函件集邮\n(0.57/3)','融资E\n(2.90/3)','农产品寄递\n(0.96/1)'],
+  [10.62,11.38,2.81,5.47,1.35,0.72,8.97,8.98,2.08,0.57,2.90,0.96],
+  [10.16,10.59,5.94,6.38,1.29,1.29,5.93,5.77,1.45,0.79,2.25,0.50],
+  [20,12,10,10,2.5,2.5,11,10,4,3,3,1]
+);
+radar('fastRadar7',
+  ['利润增幅\n(7.16/20)','收入增幅\n(12.00/12)','AUM增幅\n(4.72/10)','金融收入增幅\n(7.58/10)','商户增幅\n(1.45/2.5)','价值客户增幅\n(1.18/2.5)','寄递增幅\n(6.31/11)','特快增幅\n(10.00/10)','快递包裹增幅\n(0.70/4)','函件集邮增幅\n(1.51/3)'],
+  [7.16,12.00,4.72,7.58,1.45,1.18,6.31,10.00,0.70,1.51],
+  [4.53,4.81,7.99,4.38,1.51,1.63,3.73,3.19,1.40,1.06],
+  [20,12,10,10,2.5,2.5,11,10,4,3]
+);
+
+// ===== 强县关键指标月度趋势 =====
+new Chart(document.getElementById('strongTrendChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels:['3月','4月','5月','6月','7月'],
+    datasets:[
+      {label:'利润(20)',data:[11.65,10.37,9.90,9.90,10.62],borderColor:C_GREEN,borderWidth:2,tension:.3,pointRadius:3},
+      {label:'收入(12)',data:[11.31,10.81,11.19,11.25,11.38],borderColor:C_BLUE,borderWidth:2,tension:.3,pointRadius:3},
+      {label:'AUM(10)',data:[6.22,2.63,3.39,3.69,2.81],borderColor:C_RED,borderWidth:2,tension:.3,pointRadius:3},
+      {label:'寄递(11)',data:[9.14,8.74,8.76,8.96,8.97],borderColor:'#8b5cf6',borderWidth:2,tension:.3,pointRadius:3},
+      {label:'特快(10)',data:[8.64,8.70,9.26,9.24,8.98],borderColor:C_GOLD,borderWidth:2,tension:.3,pointRadius:3},
+      {label:'商户(2.5)',data:[0.29,0.44,0.53,0.63,1.35],borderColor:'#ec4899',borderWidth:2,tension:.3,pointRadius:3},
+      {label:'快递包裹(4)',data:[2.72,2.48,2.24,2.10,2.08],borderColor:'#6b7280',borderWidth:2,tension:.3,pointRadius:3,borderDash:[4,3]},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:11},padding:10,usePointStyle:true,pointStyle:'circle'}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+'分'}} },
+    scales:{ y:{beginAtZero:true,ticks:{font:{size:11}},grid:{color:'#eef2f0'}}, x:{grid:{display:false}} }
+  }
+});
+
+// ===== 快县关键指标月度趋势 =====
+new Chart(document.getElementById('fastTrendChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels:['3月','4月','5月','6月','7月'],
+    datasets:[
+      {label:'利润增幅(20)',data:[2.43,7.40,17.11,17.11,7.16],borderColor:C_GREEN,borderWidth:2,tension:.3,pointRadius:3},
+      {label:'收入增幅(12)',data:[9.15,9.68,11.02,12.00,12.00],borderColor:C_BLUE,borderWidth:2,tension:.3,pointRadius:3},
+      {label:'AUM增幅(10)',data:[9.41,4.11,4.88,5.90,4.72],borderColor:C_RED,borderWidth:2,tension:.3,pointRadius:3},
+      {label:'寄递增幅(11)',data:[9.38,8.14,8.44,6.17,6.31],borderColor:'#8b5cf6',borderWidth:2,tension:.3,pointRadius:3},
+      {label:'特快增幅(10)',data:[10.00,10.00,10.00,10.00,10.00],borderColor:C_GOLD,borderWidth:2.5,tension:.3,pointRadius:4},
+      {label:'金融收入增幅(10)',data:[7.49,4.70,7.36,8.90,7.58],borderColor:'#ec4899',borderWidth:2,tension:.3,pointRadius:3},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:11},padding:10,usePointStyle:true,pointStyle:'circle'}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+'分'}} },
+    scales:{ y:{beginAtZero:true,ticks:{font:{size:11}},grid:{color:'#eef2f0'}}, x:{grid:{display:false}} }
+  }
+});
+
+// ===== 得分明细表 =====
+function fillTable(tbodyId, items) {
+  const tb = document.getElementById(tbodyId);
+  let html = '';
+  items.forEach(it => {
+    const rate = (it.ps / it.max * 100).toFixed(0);
+    const gap = it.ps - it.avg;
+    const gapClass = gap >= 0 ? 'gap-pos' : 'gap-neg';
+    const gapStr = (gap >= 0 ? '+' : '') + gap.toFixed(2);
+    const barColor = gap >= 0 ? C_GREEN : C_RED;
+    const barW = Math.min(rate, 100);
+    // 趋势：仅比较最近3个月（5/6/7月）
+    const trend3 = it.trend.slice(-3);
+    const first = trend3[0], last = trend3[trend3.length-1];
+    const diff = last - first;
+    const trendIcon = diff > 0.1 ? '<span class="trend-up">↗</span>' : diff < -0.1 ? '<span class="trend-dn">↘</span>' : '<span style="color:#999">→</span>';
+    html += `<tr class="${it.highlight?'ps':''}">
+      <td>${it.name}</td><td>${it.max}</td><td><strong>${it.ps.toFixed(2)}</strong></td><td>${it.avg.toFixed(2)}</td>
+      <td>${trend3[0]!=null?trend3[0].toFixed(2):'-'}</td><td>${trend3[1]!=null?trend3[1].toFixed(2):'-'}</td>
+      <td>${trend3[2]!=null?trend3[2].toFixed(2):'-'}</td><td>${trendIcon}</td>
+      <td class="${gapClass}">${gapStr}</td>
+    </tr>`;
+  });
+  tb.innerHTML = html;
+}
+
+fillTable('strongTable7', [
+  {name:'1.利润绝对值',max:20,ps:10.62,avg:10.16,trend:[11.65,10.37,9.90,9.90,10.62],highlight:false},
+  {name:'2.收入完成绝对值',max:12,ps:11.38,avg:10.59,trend:[11.31,10.81,11.19,11.25,11.38],highlight:true},
+  {name:'4.净增AUM',max:10,ps:2.81,avg:5.94,trend:[6.22,2.63,3.39,3.69,2.81],highlight:false},
+  {name:'5.金融收入规模',max:10,ps:5.47,avg:6.38,trend:[5.19,4.94,5.42,5.43,5.47],highlight:false},
+  {name:'6.商户净增总资产',max:2.5,ps:1.35,avg:1.29,trend:[0.29,0.44,0.53,0.63,1.35],highlight:true},
+  {name:'7.净增价值客户数',max:2.5,ps:0.72,avg:1.29,trend:[0.56,0.05,0.14,0.41,0.72],highlight:false},
+  {name:'8.寄递收入',max:11,ps:8.97,avg:5.93,trend:[9.14,8.74,8.76,8.96,8.97],highlight:true},
+  {name:'9.国内特快收入',max:10,ps:8.98,avg:5.77,trend:[8.64,8.70,9.26,9.24,8.98],highlight:true},
+  {name:'10.快递包裹收入',max:4,ps:2.08,avg:1.45,trend:[2.72,2.48,2.24,2.10,2.08],highlight:false},
+  {name:'11.函件+集邮+报刊',max:3,ps:0.57,avg:0.79,trend:[0.61,0.61,0.60,0.59,0.57],highlight:false},
+  {name:'14.融资E年日均余额',max:3,ps:2.90,avg:2.25,trend:[2.84,2.88,2.90,2.83,2.90],highlight:true},
+  {name:'15.农产品寄递收入',max:1,ps:0.96,avg:0.50,trend:[0.48,0.57,0.65,0.79,0.96],highlight:true},
+]);
+
+fillTable('fastTable7', [
+  {name:'1.利润增幅',max:20,ps:7.16,avg:4.53,trend:[2.43,7.40,17.11,17.11,7.16],highlight:true},
+  {name:'2.收入增幅',max:12,ps:12.00,avg:4.81,trend:[9.15,9.68,11.02,12.00,12.00],highlight:true},
+  {name:'4.AUM规模增幅',max:10,ps:4.72,avg:7.99,trend:[9.41,4.11,4.88,5.90,4.72],highlight:false},
+  {name:'5.金融收入增幅',max:10,ps:7.58,avg:4.38,trend:[7.49,4.70,7.36,8.90,7.58],highlight:true},
+  {name:'5.商户总资产增幅',max:2.5,ps:1.45,avg:1.51,trend:[0.30,0.34,0.43,0.66,1.45],highlight:false},
+  {name:'6.价值客户数增幅',max:2.5,ps:1.18,avg:1.63,trend:[0.70,0.26,0.17,0.60,1.18],highlight:false},
+  {name:'8.寄递收入增幅',max:11,ps:6.31,avg:3.73,trend:[9.38,8.14,8.44,6.17,6.31],highlight:true},
+  {name:'9.国内特快收入增幅',max:10,ps:10.00,avg:3.19,trend:[10.00,10.00,10.00,10.00,10.00],highlight:true},
+  {name:'10.快递包裹收入增幅',max:4,ps:0.70,avg:1.40,trend:[0.70,0.60,0.69,0.77,0.70],highlight:false},
+  {name:'11.集邮+函件+报刊增幅',max:3,ps:1.51,avg:1.06,trend:[2.30,2.34,2.01,2.12,1.51],highlight:false},
+]);
+</script>
+
+
+</body></html>

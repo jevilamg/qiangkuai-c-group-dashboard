@@ -1,261 +1,803 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026年强快县区劳动竞赛·C组看板</title>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>2026年强快县区C组争先榜 · 聚焦坪山（3-8月趋势）</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #e4e4e7; min-height: 100vh; padding: 20px; }
-.container { max-width: 1400px; margin: 0 auto; }
-h1 { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 8px; background: linear-gradient(90deg, #f59e0b, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.subtitle { text-align: center; color: #a1a1aa; font-size: 14px; margin-bottom: 24px; }
-.tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
-.tab { padding: 10px 24px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s; }
-.tab.active { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
-.tab:not(.active) { background: rgba(255,255,255,0.1); color: #a1a1aa; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
-.card { background: rgba(30, 41, 59, 0.8); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); }
-.card-title { font-size: 14px; color: #a1a1aa; margin-bottom: 12px; }
-.big-number { font-size: 48px; font-weight: 700; }
-.rank-1 { color: #f59e0b; }
-.rank-2 { color: #10b981; }
-.rank-3 { color: #3b82f6; }
-.rank-other { color: #a1a1aa; }
-.trend { display: flex; gap: 8px; margin-top: 8px; }
-.trend-item { padding: 4px 12px; border-radius: 4px; font-size: 12px; background: rgba(255,255,255,0.1); }
-.section { background: rgba(30, 41, 59, 0.8); border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.1); }
-.section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
-th { color: #a1a1aa; font-weight: 500; font-size: 12px; text-transform: uppercase; }
-td { font-size: 14px; }
-tr.highlight { background: rgba(245, 158, 11, 0.1); }
-tr.highlight td { color: #f59e0b; font-weight: 600; }
-.chart-container { position: relative; height: 300px; margin-top: 16px; }
-.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-.badge-gold { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-.badge-green { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-.badge-red { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --green-dark:#0b3d2e; --green-main:#1a6b4a; --green-mid:#2d8c63;
+  --green-light:#3cb371; --green-pale:#d4f0e0; --green-bg:#f0f7f3;
+  --accent:#e63946; --accent-pale:#fce8ea; --gold:#d4a017;
+  --blue:#2563eb; --blue-pale:#dbeafe;
+  --bg:#eef4f1; --card:#fff; --text:#14241c; --text-sub:#5c7a6e;
+  --radius:14px; --shadow:0 2px 16px rgba(11,61,46,0.07);
+}
+body { font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); min-height:100vh; -webkit-text-size-adjust:100%; }
+
+.header { background:linear-gradient(135deg,var(--green-dark) 0%,var(--green-main) 60%,var(--green-mid) 100%); color:#fff; padding:32px 36px 28px; position:relative; overflow:hidden; }
+.header::after { content:""; position:absolute; top:-40px; right:-40px; width:240px; height:240px; background:radial-gradient(circle,rgba(60,179,113,0.18) 0%,transparent 70%); border-radius:50%; }
+.header::before { content:""; position:absolute; bottom:-60px; left:20%; width:300px; height:120px; background:radial-gradient(ellipse,rgba(60,179,113,0.1) 0%,transparent 70%); border-radius:50%; }
+.header h1 { font-size:25px; font-weight:700; letter-spacing:1px; position:relative; z-index:1; }
+.header .sub { font-size:14px; opacity:.82; margin-top:8px; position:relative; z-index:1; }
+.header .meta { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; position:relative; z-index:1; }
+.header .badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.22); border-radius:22px; padding:5px 14px; font-size:12px; }
+.header .badge .dot { width:7px; height:7px; border-radius:50%; background:#3cb371; }
+.header .badge.hl { background:rgba(230,57,70,.28); border-color:rgba(255,180,180,.35); }
+.header .badge.hl .dot { background:#ff8a8a; }
+.header .badge.gold { background:rgba(212,160,23,.25); border-color:rgba(255,215,100,.35); }
+.header .badge.gold .dot { background:#ffd700; }
+
+.container { max-width:1260px; margin:0 auto; padding:22px 24px 44px; }
+
+.kpi-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-bottom:24px; }
+.kpi-card { background:var(--card); border-radius:var(--radius); padding:18px 14px; box-shadow:var(--shadow); text-align:center; position:relative; overflow:hidden; }
+.kpi-card.ps { background:linear-gradient(135deg,#0b3d2e,#1a6b4a); color:#fff; }
+.kpi-card.ps .label,.kpi-card.ps .value,.kpi-card.ps .sub { color:#fff; }
+.kpi-card.ps .label { opacity:.75; } .kpi-card.ps .sub { opacity:.7; }
+.kpi-card .label { font-size:11px; color:var(--text-sub); margin-bottom:6px; }
+.kpi-card .value { font-size:28px; font-weight:800; color:var(--green-dark); line-height:1.1; }
+.kpi-card .value .unit { font-size:13px; font-weight:500; color:var(--text-sub); margin-left:2px; }
+.kpi-card.ps .value .unit { color:rgba(255,255,255,.7); }
+.kpi-card .sub { font-size:11px; color:var(--text-sub); margin-top:5px; }
+.kpi-card .sub.up { color:var(--accent); font-weight:600; }
+.kpi-card.ps .sub.up { color:#ff9a9a; }
+.kpi-card .sub.good { color:var(--green-main); font-weight:600; }
+.kpi-card .trend { font-size:10px; color:var(--text-sub); margin-top:4px; }
+.kpi-card.ps .trend { opacity:.65; }
+.kpi-card .bar-bg { width:100%; height:4px; background:#e9efe9; border-radius:2px; margin-top:8px; }
+.kpi-card .bar-fill { height:4px; border-radius:2px; background:var(--green-light); }
+.kpi-card.ps .bar-bg { background:rgba(255,255,255,.15); }
+.kpi-card.ps .bar-fill { background:#3cb371; }
+
+.section-title { font-size:17px; font-weight:700; color:var(--green-dark); margin:28px 0 14px; display:flex; align-items:center; gap:10px; }
+.section-title::before { content:""; width:5px; height:20px; background:var(--green-light); border-radius:3px; flex-shrink:0; }
+.section-title .tag { font-size:12px; font-weight:500; color:var(--text-sub); background:var(--green-pale); padding:2px 10px; border-radius:10px; }
+
+.chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+.chart-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:20px; }
+.chart-card { background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); }
+.chart-card .title { font-size:14px; font-weight:600; color:var(--green-dark); margin-bottom:4px; }
+.chart-card .desc { font-size:12px; color:var(--text-sub); margin-bottom:14px; }
+.chart-wrap { position:relative; height:300px; }
+.chart-wrap.radar { height:360px; }
+.chart-wrap.tall { height:340px; }
+
+.table-card { background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); margin-bottom:20px; }
+.table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { text-align:center; padding:10px 8px; background:var(--green-pale); color:var(--green-dark); font-weight:600; border-radius:6px; font-size:12px; white-space:nowrap; }
+thead th:first-child,thead th:nth-child(2) { text-align:left; }
+tbody td { padding:9px 8px; border-bottom:1px solid #eef2f0; text-align:center; white-space:nowrap; }
+tbody td:first-child,tbody td:nth-child(2) { text-align:left; }
+tbody tr:hover { background:#f8faf9; }
+tbody tr.ps { background:linear-gradient(90deg,#d4f0e0 0%,#eef7f1 100%); font-weight:600; }
+tbody tr.ps:hover { background:#c9e9d8; }
+.rank-badge { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; font-size:11px; font-weight:700; }
+.rank-badge.r1 { background:#ffd700; color:#7a5c00; }
+.rank-badge.r2 { background:#c0c0c0; color:#444; }
+.rank-badge.r3 { background:#cd7f32; color:#fff; }
+.rank-badge.r0 { background:#e9ecef; color:#888; }
+.score-bar { display:inline-block; width:56px; height:6px; background:#e9ecef; border-radius:3px; vertical-align:middle; margin-right:6px; overflow:hidden; }
+.score-bar .fill { height:6px; border-radius:3px; }
+.gap-pos { color:var(--green-main); font-weight:600; }
+.gap-neg { color:var(--accent); font-weight:600; }
+.trend-up { color:var(--green-main); } .trend-dn { color:var(--accent); }
+
+.analysis-card { background:linear-gradient(135deg,#f0f7f4 0%,#e8f5ee 100%); border-left:4px solid var(--green-mid); border-radius:10px; padding:18px 22px; margin-bottom:16px; }
+.analysis-card .ah { font-size:15px; font-weight:700; color:var(--green-dark); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.analysis-card .ah .icon { width:22px; height:22px; border-radius:50%; background:var(--green-main); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.analysis-card.warn { background:linear-gradient(135deg,#fef5f5 0%,#fce8ea 100%); border-left-color:var(--accent); }
+.analysis-card.warn .ah { color:var(--accent); }
+.analysis-card.warn .ah .icon { background:var(--accent); }
+.analysis-card.info { background:linear-gradient(135deg,#f0f4ff 0%,#e0e7ff 100%); border-left-color:var(--blue); }
+.analysis-card.info .ah { color:var(--blue); }
+.analysis-card.info .ah .icon { background:var(--blue); }
+.analysis-card .item { font-size:13px; color:var(--text); line-height:1.8; margin-bottom:8px; padding-left:14px; position:relative; }
+.analysis-card .item::before { content:""; position:absolute; left:0; top:11px; width:5px; height:5px; border-radius:50%; background:var(--green-mid); }
+.analysis-card.warn .item::before { background:var(--accent); }
+.analysis-card.info .item::before { background:var(--blue); }
+.analysis-card .item strong { color:var(--green-dark); }
+.analysis-card.warn .item strong { color:var(--accent); }
+.analysis-card.info .item strong { color:var(--blue); }
+.analysis-card .item .num { color:var(--accent); font-weight:700; }
+.analysis-card .item .pos { color:var(--green-main); font-weight:700; }
+
+.footer { text-align:center; font-size:12px; color:var(--text-sub); padding:20px 0 10px; line-height:1.7; }
+
+/* ===== 平板竖屏 (768-1024) ===== */
+@media(max-width:1024px) {
+  .container { padding:20px 18px 40px; }
+  .kpi-grid { grid-template-columns:repeat(3,1fr); }
+  .chart-grid,.chart-grid-3 { grid-template-columns:1fr; }
+  .chart-wrap { height:280px; }
+  .chart-wrap.radar { height:320px; }
+  .chart-wrap.tall { height:300px; }
+}
+
+/* ===== 大手机 / 小平板 (601-768) ===== */
+@media(max-width:768px) {
+  .kpi-grid { grid-template-columns:repeat(3,1fr); gap:10px; }
+  .chart-grid,.chart-grid-3 { grid-template-columns:1fr; }
+  .header { padding:24px 20px 20px; }
+  .header h1 { font-size:20px; }
+  .container { padding:16px 14px 36px; }
+  .chart-wrap { height:260px; }
+  .chart-wrap.radar { height:300px; }
+  .chart-wrap.tall { height:280px; }
+}
+
+/* ===== 手机 (<600px) ===== */
+@media(max-width:600px) {
+  .header { padding:20px 14px 16px; }
+  .header h1 { font-size:17px; letter-spacing:0.5px; }
+  .header .sub { font-size:11px; margin-top:6px; }
+  .header .meta { gap:6px; margin-top:10px; }
+  .header .badge { font-size:10px; padding:3px 8px; gap:4px; }
+  .header .badge .dot { width:5px; height:5px; }
+  .container { padding:12px 8px 28px; }
+  .kpi-grid { grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:18px; }
+  .kpi-card { padding:12px 8px; border-radius:10px; }
+  .kpi-card .label { font-size:10px; margin-bottom:4px; }
+  .kpi-card .value { font-size:22px; }
+  .kpi-card .value .unit { font-size:11px; }
+  .kpi-card .sub { font-size:10px; margin-top:3px; }
+  .kpi-card .trend { font-size:9px; margin-top:2px; }
+  .kpi-card .bar-bg { height:3px; margin-top:6px; }
+  .section-title { font-size:14px; margin:16px 0 8px; gap:8px; }
+  .section-title::before { width:4px; height:16px; }
+  .section-title .tag { font-size:10px; padding:2px 7px; }
+  .chart-card,.table-card { padding:12px 10px; border-radius:10px; }
+  .chart-card .title { font-size:13px; }
+  .chart-card .desc { font-size:11px; margin-bottom:10px; }
+  .chart-wrap { height:220px; }
+  .chart-wrap.radar { height:260px; }
+  .chart-wrap.tall { height:240px; }
+  table { font-size:11px; }
+  thead th { padding:7px 4px; font-size:11px; }
+  tbody td { padding:6px 4px; }
+  .rank-badge { width:20px; height:20px; font-size:10px; }
+  .analysis-card { padding:14px 16px; margin-bottom:12px; border-radius:8px; }
+  .analysis-card .ah { font-size:13px; margin-bottom:10px; }
+  .analysis-card .item { font-size:12px; line-height:1.7; margin-bottom:6px; padding-left:12px; }
+  .footer { font-size:11px; padding:16px 4px 8px; }
+}
+
+/* ===== 超小屏手机 (<380px) ===== */
+@media(max-width:380px) {
+  .header h1 { font-size:15px; }
+  .header .sub { font-size:10px; }
+  .header .badge { font-size:9px; padding:2px 6px; }
+  .kpi-card .value { font-size:18px; }
+  .kpi-card .label { font-size:9px; }
+  .chart-wrap { height:200px; }
+  .chart-wrap.radar { height:230px; }
+  .chart-wrap.tall { height:210px; }
+  table { font-size:10px; }
+  thead th { padding:5px 3px; }
+  tbody td { padding:4px 3px; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-<h1>2026年强快县区劳动竞赛·C组看板</h1>
-<p class="subtitle">数据截至2026年8月 | 坪山分局</p>
 
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('strong')">强县争先榜</div>
-  <div class="tab" onclick="switchTab('fast')">快县争先榜</div>
-</div>
-
-<div class="grid" id="overviewCards">
-</div>
-
-<div class="section">
-  <div class="section-title">📊 排名趋势（5月-8月）</div>
-  <div class="chart-container">
-    <canvas id="trendChart"></canvas>
+<div class="header">
+  <h1>2026年强快县区劳动竞赛 · C组争先榜</h1>
+  <div class="sub">聚焦深圳坪山 · C组12区县 · 3月-8月趋势追踪 · 最新数据：2026年1-8月累计</div>
+  <div class="meta">
+    <span class="badge hl"><span class="dot"></span>强县榜 8月第3 · 3月曾第2</span>
+    <span class="badge hl"><span class="dot"></span>快县榜 8月第3 · 5-6月连续第1</span>
+    <span class="badge gold"><span class="dot"></span>特快增幅 连续6月满分</span>
+    <span class="badge"><span class="dot"></span>收入增幅 6-8月满分</span>
+    <span class="badge"><span class="dot"></span>强快双榜上榜</span>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-title">📋 C组完整排名</div>
-  <table id="rankingTable">
-    <thead>
-      <tr>
-        <th>排名</th>
-        <th>单位</th>
-        <th>5月</th>
-        <th>6月</th>
-        <th>7月</th>
-        <th>8月</th>
-        <th>趋势</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
+<div class="container">
 
-<div class="section">
-  <div class="section-title">📈 坪山各指标得分（8月）</div>
-  <table id="indicatorTable">
-    <thead>
-      <tr>
-        <th>指标</th>
-        <th>满分</th>
-        <th>得分</th>
-        <th>得分率</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
+  <!-- KPI -->
+  <div class="kpi-grid">
+    <div class="kpi-card ps">
+      <div class="label">强县榜排名（8月）</div>
+      <div class="value">3<span class="unit">/12</span></div>
+      <div class="sub">总分 70.09</div>
+      <div class="trend">3月2→4月6→5月3→6月4→7月3→8月3</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div>
+    </div>
+    <div class="kpi-card ps">
+      <div class="label">快县榜排名（8月）</div>
+      <div class="value">2<span class="unit">/12</span></div>
+      <div class="sub">总分 48.83</div>
+      <div class="trend">3月1→4月2→5月1→6月1→7月2→8月3</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:83%"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">强县总分趋势</div>
+      <div class="value" style="color:var(--green-main)">70.1<span class="unit">分</span></div>
+      <div class="sub good">较4月低谷+10.81分</div>
+      <div class="trend">64.9→59.3→67.2→65.0→68.1→70.1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">快县总分趋势</div>
+      <div class="value" style="color:var(--green-main)">48.8<span class="unit">分</span></div>
+      <div class="sub">较5-6月峰值-28.30分</div>
+      <div class="trend">56.3→55.9→76.4→77.1→61.8→48.8</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">特快增幅</div>
+      <div class="value" style="color:var(--gold)">10.0<span class="unit">/10</span></div>
+      <div class="sub good">连续6月满分 · C组第1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">收入增幅</div>
+      <div class="value" style="color:var(--gold)">12.0<span class="unit">/12</span></div>
+      <div class="sub good">6-8月连续满分</div>
+    </div>
+  </div>
+
+  <!-- 月度排名趋势 -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="title">C组月度排名趋势 · 3月-8月</div>
+      <div class="desc">快县8月降至第3，强县8月稳居第3，排名整体稳定</div>
+      <div class="chart-wrap"><canvas id="rankTrendChart" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="title">坪山月度总分趋势 · 3月-8月</div>
+      <div class="desc">强县8月攀升至70.09创6月新高，快县8月回落至48.83</div>
+      <div class="chart-wrap"><canvas id="scoreTrendChart" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 7月C组排名 -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="title">8月强县榜 · C组总分排名</div>
+      <div class="desc">坪山70.09分排名第3，距第2名阳春仅差0.84分，距第1罗定差2.16分</div>
+      <div class="chart-wrap"><canvas id="strongRank7" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="title">8月快县榜 · C组总分排名</div>
+      <div class="desc">坪山48.83分排名第3，揭东（67.02）居首，花都（51.71）第2</div>
+      <div class="chart-wrap"><canvas id="fastRank7" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 7月雷达图 -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="title">8月强县指标雷达 · 坪山 vs C组均值</div>
+      <div class="desc">商户/融资E满分，寄递/特快持续领先，AUM为主要短板</div>
+      <div class="chart-wrap radar"><canvas id="strongRadar7" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="title">8月快县指标雷达 · 坪山 vs C组均值</div>
+      <div class="desc">特快增幅连续6月满分，收入增幅保持高位；利润/金融收入增幅偏弱</div>
+      <div class="chart-wrap radar"><canvas id="fastRadar7" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 关键指标月度趋势 -->
+  <div class="section-title">坪山强县关键指标 · 6个月走势 <span class="tag">3月→8月</span></div>
+  <div class="chart-card" style="margin-bottom:20px">
+    <div class="desc">寄递/特快稳定高位，商户/农产品寄递持续改善，快递包裹逐月下滑，AUM波动较大</div>
+    <div class="chart-wrap tall"><canvas id="strongTrendChart" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+  </div>
+
+  <div class="section-title">坪山快县关键指标 · 6个月走势 <span class="tag">3月→8月</span></div>
+  <div class="chart-card" style="margin-bottom:20px">
+    <div class="desc">特快增幅连续满分，收入增幅持续攀升至满分；利润增幅5-6月爆发后7月回落，寄递增幅下行</div>
+    <div class="chart-wrap tall"><canvas id="fastTrendChart" style="display:block;box-sizing:border-box;width:100%!important"></canvas></div>
+  </div>
+
+  <!-- 7月得分明细表 -->
+  <div class="section-title">8月强县榜 · 坪山各项得分明细 <span class="tag">vs C组均值 · 近3月趋势</span></div>
+  <div class="table-card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>指标</th><th>满分</th><th>坪山7月</th><th>C组均值</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>趋势</th><th>与均值差</th></tr>
+        </thead>
+        <tbody id="strongTable7"><tr class="">
+      <td>1.利润绝对值</td><td>20</td><td><strong>10.62</strong></td><td>10.16</td>
+      <td>9.90</td><td>9.90</td>
+      <td>10.62</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.46</td>
+    </tr><tr class="ps">
+      <td>2.收入完成绝对值</td><td>12</td><td><strong>11.38</strong></td><td>10.59</td>
+      <td>11.19</td><td>11.25</td>
+      <td>11.38</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.79</td>
+    </tr><tr class="">
+      <td>4.净增AUM</td><td>10</td><td><strong>2.81</strong></td><td>5.94</td>
+      <td>3.39</td><td>3.69</td>
+      <td>2.81</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-neg">-3.13</td>
+    </tr><tr class="">
+      <td>5.金融收入规模</td><td>10</td><td><strong>5.47</strong></td><td>6.38</td>
+      <td>5.42</td><td>5.43</td>
+      <td>5.47</td><td><span style="color:#999">→</span></td>
+      <td class="gap-neg">-0.91</td>
+    </tr><tr class="ps">
+      <td>6.商户净增总资产</td><td>2.5</td><td><strong>1.35</strong></td><td>1.29</td>
+      <td>0.53</td><td>0.63</td>
+      <td>1.35</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.06</td>
+    </tr><tr class="">
+      <td>7.净增价值客户数</td><td>2.5</td><td><strong>0.72</strong></td><td>1.29</td>
+      <td>0.14</td><td>0.41</td>
+      <td>0.72</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-neg">-0.57</td>
+    </tr><tr class="ps">
+      <td>8.寄递收入</td><td>11</td><td><strong>8.97</strong></td><td>5.93</td>
+      <td>8.76</td><td>8.96</td>
+      <td>8.97</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+3.04</td>
+    </tr><tr class="ps">
+      <td>9.国内特快收入</td><td>10</td><td><strong>8.98</strong></td><td>5.77</td>
+      <td>9.26</td><td>9.24</td>
+      <td>8.98</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+3.21</td>
+    </tr><tr class="">
+      <td>10.快递包裹收入</td><td>4</td><td><strong>2.08</strong></td><td>1.45</td>
+      <td>2.24</td><td>2.10</td>
+      <td>2.08</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+0.63</td>
+    </tr><tr class="">
+      <td>11.函件+集邮+报刊</td><td>3</td><td><strong>0.57</strong></td><td>0.79</td>
+      <td>0.60</td><td>0.59</td>
+      <td>0.57</td><td><span style="color:#999">→</span></td>
+      <td class="gap-neg">-0.22</td>
+    </tr><tr class="ps">
+      <td>14.融资E年日均余额</td><td>3</td><td><strong>2.90</strong></td><td>2.25</td>
+      <td>2.90</td><td>2.83</td>
+      <td>2.90</td><td><span style="color:#999">→</span></td>
+      <td class="gap-pos">+0.65</td>
+    </tr><tr class="ps">
+      <td>15.农产品寄递收入</td><td>1</td><td><strong>0.96</strong></td><td>0.50</td>
+      <td>0.65</td><td>0.79</td>
+      <td>0.96</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+0.46</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-title">8月快县榜 · 坪山各项得分明细 <span class="tag">vs C组均值 · 近3月趋势</span></div>
+  <div class="table-card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>指标</th><th>满分</th><th>坪山7月</th><th>C组均值</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>趋势</th><th>与均值差</th></tr>
+        </thead>
+        <tbody id="fastTable7"><tr class="ps">
+      <td>1.利润增幅</td><td>20</td><td><strong>7.16</strong></td><td>4.53</td>
+      <td>17.11</td><td>17.11</td>
+      <td>7.16</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+2.63</td>
+    </tr><tr class="ps">
+      <td>2.收入增幅</td><td>12</td><td><strong>12.00</strong></td><td>4.81</td>
+      <td>11.02</td><td>12.00</td>
+      <td>12.00</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+7.19</td>
+    </tr><tr class="">
+      <td>4.AUM规模增幅</td><td>10</td><td><strong>4.72</strong></td><td>7.99</td>
+      <td>4.88</td><td>5.90</td>
+      <td>4.72</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-neg">-3.27</td>
+    </tr><tr class="ps">
+      <td>5.金融收入增幅</td><td>10</td><td><strong>7.58</strong></td><td>4.38</td>
+      <td>7.36</td><td>8.90</td>
+      <td>7.58</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-pos">+3.20</td>
+    </tr><tr class="">
+      <td>5.商户总资产增幅</td><td>2.5</td><td><strong>1.45</strong></td><td>1.51</td>
+      <td>0.43</td><td>0.66</td>
+      <td>1.45</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-neg">-0.06</td>
+    </tr><tr class="">
+      <td>6.价值客户数增幅</td><td>2.5</td><td><strong>1.18</strong></td><td>1.63</td>
+      <td>0.17</td><td>0.60</td>
+      <td>1.18</td><td><span class="trend-up">↗</span></td>
+      <td class="gap-neg">-0.45</td>
+    </tr><tr class="ps">
+      <td>8.寄递收入增幅</td><td>11</td><td><strong>6.31</strong></td><td>3.73</td>
+      <td>8.44</td><td>6.17</td>
+      <td>6.31</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+2.58</td>
+    </tr><tr class="ps">
+      <td>9.国内特快收入增幅</td><td>10</td><td><strong>10.00</strong></td><td>3.19</td>
+      <td>10.00</td><td>10.00</td>
+      <td>10.00</td><td><span style="color:#999">→</span></td>
+      <td class="gap-pos">+6.81</td>
+    </tr><tr class="">
+      <td>10.快递包裹收入增幅</td><td>4</td><td><strong>0.70</strong></td><td>1.40</td>
+      <td>0.69</td><td>0.77</td>
+      <td>0.70</td><td><span style="color:#999">→</span></td>
+      <td class="gap-neg">-0.70</td>
+    </tr><tr class="">
+      <td>11.集邮+函件+报刊增幅</td><td>3</td><td><strong>1.51</strong></td><td>1.06</td>
+      <td>2.01</td><td>2.12</td>
+      <td>1.51</td><td><span class="trend-dn">↘</span></td>
+      <td class="gap-pos">+0.45</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 经营分析 -->
+  <div class="section-title">经营分析与行动建议</div>
+
+  <div class="analysis-card">
+    <div class="ah"><span class="icon">✓</span> 核心优势：寄递+特快双引擎持续领先</div>
+    <div class="item">寄递收入得分 <strong>9.06/11</strong>（C组均值5.98），国内特快得分 <strong>8.67/10</strong>（均值5.64），6个月持续高位，是坪山强县榜稳居前3的基石。</div>
+    <div class="item">快县特快增幅 <strong>连续6月满分10.0</strong>，远超C组均值2.95；收入增幅8月10.17分保持高位，增幅势头强劲。</div>
+    <div class="item">商户资产8月继续满分 <strong>2.50/2.5</strong>，融资E得分2.89（均值2.24），接近满分，两项持续为强县贡献稳定得分。</div>
+  </div>
+
+  <div class="analysis-card info">
+    <div class="ah"><span class="icon">↑</span> 持续改善：商户、价值客户、农产品寄递逐月向好</div>
+    <div class="item">商户净增总资产8月 <span class="pos">满分2.50</span>，连续2月满分，从3月0.29增长至满分，6个月增长8.6倍，远超C组均值（1.26）。</div>
+    <div class="item">价值客户数从4月谷底0.05分 <span class="pos">→ 8月1.19分</span>，持续回升中，仍略低于均值（1.42），差距收窄至0.23分。</div>
+    <div class="item">农产品寄递收入8月 <span class="pos">满分1.00</span>，连续2月满分，从3月0.48翻倍增长。</div>
+  </div>
+
+  <div class="analysis-card warn">
+    <div class="ah"><span class="icon">!</span> 关键风险：AUM大幅波动、快递包裹持续下滑</div>
+    <div class="item">AUM得分从3月6.22暴跌至4月2.63，8月仅3.03（均值5.80），差距 <span class="num">-2.77分</span>，仍是最大失分项。6个月持续低迷，需稳定AUM揽收节奏。</div>
+    <div class="item">快递包裹收入得分从3月2.72 <span class="num">→ 8月2.17</span>，6个月整体下行（满分4分），快县增幅也仅0.40分（均值1.03）。需警惕快递包裹业务流失。</div>
+    <div class="item">快县寄递收入增幅从3月9.38 <span class="num">→ 8月4.66</span>，持续下行，虽然特快增幅满分撑着，但整体寄递增幅在收窄。</div>
+  </div>
+
+  <div class="analysis-card">
+    <div class="ah"><span class="icon">→</span> 行动建议</div>
+    <div class="item"><strong>冲刺强县第2：</strong>8月距第2名阳春仅差0.84分，差距大幅缩小。AUM单项差距3.13分仍是关键，补齐AUM即可反超。建议重点抓跨赛AUM攻坚。</div>
+    <div class="item"><strong>快县争第1：</strong>8月揭东以67.02分稳居第1，坪山48.83分降至第3，差距较大。利润增幅从5-6月17.11暴跌至8月1.39是主因。需扭转利润增速放缓趋势，维持特快满分优势。</div>
+    <div class="item"><strong>遏制快递包裹下滑：</strong>连续6月下行趋势明确，建议分析流失原因（价格、服务、竞品），出台专项稳量措施。</div>
+    <div class="item"><strong>保持商户/农产品寄递势头：</strong>商户资产8月满分，农产品寄递连续2月满分，继续巩固优势。</div>
+  </div>
+
+  <div class="footer">
+    数据来源：2026年3-8月强快县区劳动竞赛指标通报表（粤邮分联〔2026〕11号）<br>
+    C组成员（12个）：阳春、罗定、阳江城区、遂溪、兴宁、坪山、花都、湛江城区、东莞城区、潮安、福田、揭东<br>
+    看板生成时间：2026年9月19日 · 聚焦深圳坪山
+  </div>
+
 </div>
 
 <script>
-const rankingData = {"5\u6708": {"\u5f3a\u53bf\u6392\u540d": {"\u9633\u6c5f\u9633\u6625": 1, "\u4e91\u6d6e\u7f57\u5b9a": 2, "\u6df1\u5733\u576a\u5c71": 3, "\u9633\u6c5f\u57ce\u533a": 4, "\u6885\u5dde\u5174\u5b81": 5, "\u6e5b\u6c5f\u57ce\u533a": 6, "\u6e5b\u6c5f\u9042\u6eaa": 7, "\u5e7f\u5dde\u82b1\u90fd": 8, "\u6f6e\u5dde\u6f6e\u5b89": 9, "\u6df1\u5733\u798f\u7530": 10, "\u63ed\u9633\u63ed\u4e1c": 11, "\u4e1c\u839e\u57ce\u533a": 12}, "\u5feb\u53bf\u6392\u540d": {"\u6df1\u5733\u576a\u5c71": 1, "\u63ed\u9633\u63ed\u4e1c": 2, "\u5e7f\u5dde\u82b1\u90fd": 3, "\u6f6e\u5dde\u6f6e\u5b89": 4, "\u4e91\u6d6e\u7f57\u5b9a": 5, "\u9633\u6c5f\u57ce\u533a": 6, "\u6e5b\u6c5f\u9042\u6eaa": 7, "\u6df1\u5733\u798f\u7530": 8, "\u6e5b\u6c5f\u57ce\u533a": 9, "\u9633\u6c5f\u9633\u6625": 10, "\u6885\u5dde\u5174\u5b81": 11, "\u4e1c\u839e\u57ce\u533a": 12}}, "6\u6708": {"\u5f3a\u53bf\u6392\u540d": {"\u4e91\u6d6e\u7f57\u5b9a": 1, "\u9633\u6c5f\u9633\u6625": 2, "\u6885\u5dde\u5174\u5b81": 3, "\u6df1\u5733\u576a\u5c71": 4, "\u9633\u6c5f\u57ce\u533a": 5, "\u6e5b\u6c5f\u9042\u6eaa": 6, "\u6e5b\u6c5f\u57ce\u533a": 7, "\u5e7f\u5dde\u82b1\u90fd": 8, "\u6df1\u5733\u798f\u7530": 9, "\u63ed\u9633\u63ed\u4e1c": 10, "\u4e1c\u839e\u57ce\u533a": 11, "\u6f6e\u5dde\u6f6e\u5b89": 12}, "\u5feb\u53bf\u6392\u540d": {"\u6df1\u5733\u576a\u5c71": 1, "\u63ed\u9633\u63ed\u4e1c": 2, "\u5e7f\u5dde\u82b1\u90fd": 3, "\u6df1\u5733\u798f\u7530": 4, "\u6f6e\u5dde\u6f6e\u5b89": 5, "\u4e91\u6d6e\u7f57\u5b9a": 6, "\u6e5b\u6c5f\u9042\u6eaa": 7, "\u6885\u5dde\u5174\u5b81": 8, "\u9633\u6c5f\u57ce\u533a": 9, "\u6e5b\u6c5f\u57ce\u533a": 10, "\u9633\u6c5f\u9633\u6625": 11, "\u4e1c\u839e\u57ce\u533a": 12}}, "7\u6708": {"\u5f3a\u53bf\u6392\u540d": {"\u4e91\u6d6e\u7f57\u5b9a": 1, "\u9633\u6c5f\u9633\u6625": 2, "\u6df1\u5733\u576a\u5c71": 3, "\u6885\u5dde\u5174\u5b81": 4, "\u9633\u6c5f\u57ce\u533a": 5, "\u5e7f\u5dde\u82b1\u90fd": 6, "\u6e5b\u6c5f\u9042\u6eaa": 7, "\u6e5b\u6c5f\u57ce\u533a": 8, "\u6df1\u5733\u798f\u7530": 9, "\u4e1c\u839e\u57ce\u533a": 10, "\u63ed\u9633\u63ed\u4e1c": 11, "\u6f6e\u5dde\u6f6e\u5b89": 12}, "\u5feb\u53bf\u6392\u540d": {"\u63ed\u9633\u63ed\u4e1c": 1, "\u6df1\u5733\u576a\u5c71": 2, "\u5e7f\u5dde\u82b1\u90fd": 3, "\u6df1\u5733\u798f\u7530": 4, "\u4e91\u6d6e\u7f57\u5b9a": 5, "\u6f6e\u5dde\u6f6e\u5b89": 6, "\u6e5b\u6c5f\u9042\u6eaa": 7, "\u6885\u5dde\u5174\u5b81": 8, "\u9633\u6c5f\u57ce\u533a": 9, "\u6e5b\u6c5f\u57ce\u533a": 10, "\u9633\u6c5f\u9633\u6625": 11, "\u4e1c\u839e\u57ce\u533a": 12}}};
-rankingData["8月"] = {"强县排名": {"阳江城区": 4, "云浮罗定": 1, "阳江阳春": 2, "深圳福田": 10, "广州花都": 5, "湛江城区": 8, "揭阳揭东": 11, "深圳坪山": 3, "潮州潮安": 12, "湛江遂溪": 7, "梅州兴宁": 6, "东莞城区": 9}, "快县排名": {"阳江城区": 10, "云浮罗定": 4, "阳江阳春": 12, "深圳福田": 6, "广州花都": 2, "湛江城区": 11, "揭阳揭东": 1, "深圳坪山": 3, "潮州潮安": 7, "湛江遂溪": 5, "梅州兴宁": 8, "东莞城区": 9}};
-const scoresData = {"5\u6708": {"\u9633\u6c5f\u57ce\u533a": {"0": 10.90649562423635, "1": 10.601046777054538, "2": 4.449767085239294, "3": 7.001015639597506, "4": 5.806613005796672, "5": 1.465831786559539, "6": 1.1104624007473143, "7": 7.29167198344781, "8": 6.099979810530449, "9": 2.0619573935925914}, "\u7f57\u5b9a": {"0": 20.0, "1": 10.842535362114324, "2": 8.0, "3": 10.0, "4": 10.0, "5": 1.7393606577436849, "6": 1.521485287248949, "7": 1.4083483280421076, "8": 1.4301889953194284, "9": 0.42350149057646336}, "\u9633\u6625": {"0": 18.625578296027516, "1": 10.389478439046151, "2": 6.988271650689105, "3": 9.802259794546796, "4": 9.019779238167105, "5": 2.5, "6": 2.2244278374591313, "7": 2.0363832332101857, "8": 2.493997715982637, "9": 0.5390705644204496}, "\u798f\u7530": {"0": 0.6723131610128582, "1": 11.603774841035564, "2": 3.8900006553114816, "3": 2.6455426343075574, "4": 4.621269907864792, "5": 0.09304453718593614, "6": 1.0298925735637552, "7": 8.814262100659795, "8": 10.0, "9": 1.6850498308461521}, "\u82b1\u90fd": {"0": 0.0, "1": 12.0, "2": 5.5859027550539695, "3": 4.8147208399939005, "4": 4.108000121427812, "5": 2.0480492434256625, "6": 0.16113965436711816, "7": 11.0, "8": 9.338533648834622, "9": 3.3733776115356844}, "\u6e5b\u6c5f\u57ce\u533a": {"0": 8.70302319189381, "1": 9.69667615472062, "2": 4.634345238676986, "3": 8.404079692060662, "4": 6.410793345494923, "5": 1.7139140595584745, "6": 1.7129845866417561, "7": 3.7369661338771714, "8": 8.658585386240045, "9": 0.2655608676187458}, "\u63ed\u4e1c": {"0": 5.617237898801949, "1": 10.279908837240772, "2": 2.8183335932670377, "3": 3.672256503003558, "4": 3.6300044543125938, "5": 1.5262316084713257, "6": 0.8045305931807567, "7": 10.198223404453062, "8": 4.8444107076550615, "9": 4.0}, "\u576a\u5c71": {"0": 9.900751351763354, "1": 11.190665661132982, "2": 4.708509770876707, "3": 3.38651412197268, "4": 5.41842382754864, "5": 0.5294423589338648, "6": 0.14362447454460534, "7": 8.764998005167495, "8": 9.264009126933633, "9": 2.2396424867948785}, "\u6f6e\u5b89": {"0": 12.153744170845336, "1": 9.80421148231097, "2": 3.9274219097435004, "3": 2.8526579745069625, "4": 5.45718095192698, "5": 0.981996899315905, "6": 0.0, "7": 6.418597566292044, "8": 5.514607387046668, "9": 2.0999105606588557}, "\u9042\u6eaa": {"0": 15.364254318598093, "1": 9.22321132266744, "2": 7.5564276394090015, "3": 9.637819248028197, "4": 8.187910432710755, "5": 2.0882367128432917, "6": 2.5, "7": 1.4164403278348112, "8": 1.8243074540494273, "9": 0.35810715859897113}, "\u5174\u5b81": {"0": 17.43838245721822, "1": 9.196975619541465, "2": 7.358222354789296, "3": 9.809541604579655, "4": 7.943498261276247, "5": 1.8953385367612539, "6": 1.853106025221859, "7": 1.7965181918121305, "8": 1.411382194291081, "9": 0.5665722837213393}, "\u4e1c\u839e\u57ce\u533a": {"0": 5.224585578573194, "1": 9.04954204494862, "2": 5.650942896079828, "3": 4.1095863314292425, "4": 4.973115987658833, "5": 1.1211489090918108, "6": 0.7648295189163942, "7": 5.746981520379489, "8": 9.88990723463367, "9": 1.0215881652463534}}, "6\u6708": {"\u9633\u6c5f\u57ce\u533a": {"0": 10.90649562423635, "1": 10.395107880709348, "2": 4.331756667407669, "3": 7.356180638496715, "4": 5.802974791213186, "5": 1.626956135602121, "6": 0.9907359752959342, "7": 7.055559613093395, "8": 6.174674278758464, "9": 1.9208912308637105}, "\u7f57\u5b9a": {"0": 20.0, "1": 11.09826022685241, "2": 8.0, "3": 9.173696164833679, "4": 10.0, "5": 1.3592594972329604, "6": 1.6713844570252188, "7": 1.7110100623086277, "8": 1.811945448944721, "9": 0.449147358924923}, "\u9633\u6625": {"0": 18.625578296027516, "1": 10.421453473196756, "2": 7.118848420068151, "3": 10.0, "4": 9.056357961285066, "5": 2.5, "6": 2.309572825527535, "7": 2.069998048315826, "8": 2.3939715105005344, "9": 0.5088014871076242}, "\u798f\u7530": {"0": 0.6723131610128582, "1": 11.644831177097782, "2": 3.8663891809719573, "3": 2.5920490868520627, "4": 4.636606242000097, "5": 0.3576606903979287, "6": 1.0151827071538857, "7": 8.955531558848598, "8": 10.0, "9": 1.5551672436566462}, "\u82b1\u90fd": {"0": 0.0, "1": 12.0, "2": 5.846738333765836, "3": 4.497139247752553, "4": 4.1941568275067596, "5": 1.5816052156819, "6": 0.29336078229541945, "7": 11.0, "8": 9.190416060110739, "9": 3.099010609582742}, "\u6e5b\u6c5f\u57ce\u533a": {"0": 8.70302319189381, "1": 9.837390527095232, "2": 4.755528846796445, "3": 7.384813136981907, "4": 6.515109495326353, "5": 1.2939968349918805, "6": 1.4938239835306228, "7": 3.769850006318682, "8": 8.316871114473605, "9": 0.23619367022299886}, "\u63ed\u4e1c": {"0": 5.617237898801949, "1": 10.702773792202306, "2": 2.8673983970546364, "3": 3.4710622946659564, "4": 3.7351200228702393, "5": 1.167111921611053, "6": 0.8582089552238806, "7": 10.793354314698675, "8": 4.45928698940607, "9": 4.0}, "\u576a\u5c71": {"0": 9.900751351763354, "1": 11.254818897019254, "2": 4.710694722132755, "3": 3.689408822825671, "4": 5.425720199574896, "5": 0.6301372184077324, "6": 0.40658775090066906, "7": 8.958176732297526, "8": 9.23824295691544, "9": 2.101399760807911}, "\u6f6e\u5b89": {"0": 12.153744170845336, "1": 10.016753820270987, "2": 3.968338607690703, "3": 2.634651916833878, "4": 5.543556272659057, "5": 0.5041804703809021, "6": 0.0, "7": 6.68271567922229, "8": 5.195070909663885, "9": 2.0677472379820174}, "\u9042\u6eaa": {"0": 15.364254318598093, "1": 9.398299296259024, "2": 7.786348846243347, "3": 8.984620272228538, "4": 8.296159129921518, "5": 2.177849745995564, "6": 2.5, "7": 1.4122650490842408, "8": 1.748345972176319, "9": 0.32680244090869526}, "\u5174\u5b81": {"0": 17.43838245721822, "1": 9.483225761142933, "2": 7.383135194639923, "3": 8.973409789896756, "4": 8.039621514253154, "5": 1.4973113482844687, "6": 2.1037056098816262, "7": 1.989173994907493, "8": 1.628923810689725, "9": 0.520518120692795}, "\u4e1c\u839e\u57ce\u533a": {"0": 5.224585578573194, "1": 9.162581500952264, "2": 5.688038170300059, "3": 4.820422484203942, "4": 5.052513552803683, "5": 1.2348319802016756, "6": 0.9727225939269172, "7": 5.910863250907724, "8": 9.576902465035223, "9": 0.9346929832954655}}, "7\u6708": {"\u9633\u6c5f\u57ce\u533a": {"0": 9.80725808471685, "1": 10.4699313213818, "2": 4.21307285828795, "3": 7.09707858977611, "4": 5.8164172588181, "5": 1.61778283507801, "6": 0.903106898367562, "7": 7.0372471741619, "8": 5.93383870241139, "9": 1.87620281099436}, "\u7f57\u5b9a": {"0": 20.0, "1": 11.2304844639891, "2": 8.0, "3": 8.95799722916528, "4": 10.0, "5": 1.09937417918389, "6": 1.72064244339126, "7": 1.78508486728985, "8": 1.91661722226718, "9": 0.442773660226351}, "\u9633\u6625": {"0": 17.7384394464078, "1": 10.4992090800091, "2": 7.07066728629049, "3": 10.0, "4": 9.07118728263941, "5": 2.5, "6": 2.5, "7": 2.05600209552318, "8": 2.32570939221084, "9": 0.486829249557028}, "\u798f\u7530": {"0": 1.10767620376832, "1": 11.6729211984024, "2": 3.83304150924595, "3": 2.50314848744091, "4": 4.68481381520984, "5": 0.512586493781937, "6": 1.08873091100579, "7": 8.81012602101506, "8": 10.0, "9": 1.45152622218335}, "\u82b1\u90fd": {"0": 1.42358688066992, "1": 12.0, "2": 5.8292956408946, "3": 4.72832992002908, "4": 4.19764373551913, "5": 1.48236920571692, "6": 0.512111637704055, "7": 10.8933550610666, "8": 9.11659373479248, "9": 2.9577537440541}, "\u6e5b\u6c5f\u57ce\u533a": {"0": 9.27006280530356, "1": 10.0146620163673, "2": 4.64890355541593, "3": 6.42521097205083, "4": 6.56822472835592, "5": 1.02562912498696, "6": 1.33228014744602, "7": 3.90452665681278, "8": 8.37616407083129, "9": 0.229039780134353}, "\u63ed\u4e1c": {"0": 6.36427076064201, "1": 10.9057166696726, "2": 2.90957068140929, "3": 3.26873816393167, "4": 3.7153721908383, "5": 0.645906976196494, "6": 0.912322274881517, "7": 11.0, "8": 4.23432662751895, "9": 4.0}, "\u576a\u5c71": {"0": 10.6202372644801, "1": 11.3826870618151, "2": 4.62335285331347, "3": 2.81242926785126, "4": 5.46672961244596, "5": 1.35429683887983, "6": 0.718799368088468, "7": 8.96992716185353, "8": 8.97503299518608, "9": 2.07509407904954}, "\u6f6e\u5b89": {"0": 10.1186322400558, "1": 10.2201055410199, "2": 3.88325481199873, "3": 3.10609345580088, "4": 5.55910983035424, "5": 0.643667393798114, "6": 0.0974196945760927, "7": 6.88072241008483, "8": 5.11765694832175, "9": 2.08602007693773}, "\u9042\u6eaa": {"0": 15.81123517097, "1": 9.52725327199537, "2": 7.86691737467007, "3": 8.56591119944788, "4": 8.37436403103444, "5": 2.13527140400442, "6": 2.36703528172722, "7": 1.41352870012361, "8": 1.75529418671825, "9": 0.309425464197925}, "\u5174\u5b81": {"0": 16.7411025819958, "1": 9.6194360717571, "2": 7.22625291921435, "3": 8.59380550123338, "4": 8.03141718164066, "5": 1.26332718695955, "6": 2.12085308056872, "7": 2.13706693359883, "8": 1.74252502766935, "9": 0.492794880938716}, "\u4e1c\u839e\u57ce\u533a": {"0": 2.86461967899511, "1": 9.51151359222836, "2": 5.5949638160924, "3": 5.22152405861322, "4": 5.0684147797161, "5": 1.25666055052389, "6": 1.17825171142707, "7": 6.22345885588109, "8": 9.72176526005162, "9": 0.933585789175697}}};
-scoresData["8月"] = {"阳江城区": {"0": 9.95816868193821, "1": 10.6176456037301, "2": 4.33147633377574, "3": 6.77451861362182, "4": 5.8430127013634, "5": 1.53378212288478, "6": 1.10990206746464, "7": 7.29024090302775, "8": 5.84588290497556, "9": 1.94708297520241, "10": 0.410075501304121, "11": 0.858895131086142, "12": 0.368590836102064, "13": 1.78956951515658, "14": 0.7804392554227}, "罗定": {"0": 20, "1": 11.3077350389657, "2": 7.99471053546006, "3": 8.42952460687003, "4": 10, "5": 0.614079314555067, "6": 1.88792165397171, "7": 1.89412152471493, "8": 2.04892307715608, "9": 0.464317719877483, "10": 0.312938889354032, "11": 1.17078651685393, "12": 0.104388410799822, "13": 1.55220441760272, "14": 0.262687290583196}, "阳春": {"0": 17.9651308164227, "1": 10.524309052877, "2": 7.28203792014652, "3": 10, "4": 9.07867142321456, "5": 2.13001104001633, "6": 2.5, "7": 2.02589095247532, "8": 2.17839859485061, "9": 0.495980144629524, "10": 0.381418807710051, "11": 1.5, "12": 0.128911308746791, "13": 2.56562584744121, "14": 0.175934194798629}, "福田": {"0": 0.119357306809487, "1": 11.4483192582149, "2": 3.82114516345585, "3": 2.31176506558021, "4": 4.60268589386865, "5": 1.1785328152091, "6": 1.42546245919478, "7": 8.68875930869597, "8": 9.6649139423157, "9": 1.45662477293717, "10": 3, "11": 0.0893258426966292, "12": 1.5, "13": 3, "14": 0.986185759058102}, "花都": {"0": 1.45952563121653, "1": 12, "2": 5.89115180061946, "3": 5.14402435761543, "4": 4.16679237514448, "5": 1.4889231660695, "6": 0.636561479869423, "7": 11, "8": 8.87013666140326, "9": 2.9486813234117, "10": 1.08211850445987, "11": 1.03787453183521, "12": 0.172257374294666, "13": 2.64182980016189, "14": 0.238462851250986}, "湛江城区": {"0": 8.57689364957919, "1": 9.98915230890751, "2": 4.59623601655011, "3": 5.98161858391127, "4": 6.58127726991457, "5": 0.887894004867342, "6": 1.24183895538629, "7": 3.89289789725969, "8": 8.01766384690745, "9": 0.245365011792919, "10": 1.00200535527529, "11": 0.588857677902622, "12": 0.440521215226045, "13": 2.66385052819163, "14": 0.376850324658464}, "揭东": {"0": 6.55241009946442, "1": 10.7246866983337, "2": 2.9911572945031, "3": 3.30357433093959, "4": 3.70389578173421, "5": 0.334842232069413, "6": 1.17519042437432, "7": 10.8120182123357, "8": 4.08620192415822, "9": 4, "10": 0.265209996967646, "11": 0.150421348314607, "12": 0.171587530339484, "13": 1.85306873117788, "14": 0.907097889775467}, "坪山": {"0": 9.91277735271614, "1": 11.2577535504113, "2": 4.6209286761935, "3": 3.03064114912151, "4": 5.33187343051922, "5": 2.5, "6": 1.19287268770403, "7": 9.05915572469658, "8": 8.66780427537527, "9": 2.16937135838096, "10": 0.53983387194432, "11": 0.229868913857678, "12": 0.178951705982401, "13": 2.89338603355714, "14": 1}, "潮安": {"0": 9.96174445294568, "1": 10.162819590353, "2": 3.94037731529304, "3": 3.45903280135537, "4": 5.56933386061021, "5": 0.675407464742199, "6": 0.116974972796518, "7": 6.81346394556196, "8": 4.91787251956122, "9": 2.10367803456841, "10": 0.351661121350011, "11": 0.152574906367041, "12": 0.211980803072879, "13": 2.38462157990568, "14": 0.0507547105326583}, "遂溪": {"0": 16.1680183626626, "1": 9.55546225522239, "2": 8, "3": 8.00583503462175, "4": 8.41692836041081, "5": 1.93517816041017, "6": 2.16403699673558, "7": 1.38514808608608, "8": 1.67176147942808, "9": 0.30766861370922, "10": 0.447336735944798, "11": 0.616900749063671, "12": 0.226372754634632, "13": 1.94879772941827, "14": 0.345360684035343}, "兴宁": {"0": 16.6365723029839, "1": 9.606084199491, "2": 7.35120760988827, "3": 8.04825377456434, "4": 8.00903231619408, "5": 1.00660412027477, "6": 2.01849836779108, "7": 2.17815377440962, "8": 1.71967118013436, "9": 0.484728630485336, "10": 0.445843776535788, "11": 0.627668539325843, "12": 0.148953921110831, "13": 1.34849739115542, "14": 0.354110694576923}, "东莞城区": {"0": 3.40015302218822, "1": 9.73679272920591, "2": 5.71337393687143, "3": 5.12830188421906, "4": 5.04152741437425, "5": 0.845158474465546, "6": 1.54243743199129, "7": 6.66260337825463, "8": 10, "9": 0.993287050445125, "10": 1.11446115204229, "11": 0.197940074906367, "12": 0.273312693995087, "13": 2.24767406060186, "14": 0.415355442096101}};
-const indicators = {"0": ["\u5229\u6da6", 20], "1": ["\u6536\u5165", 12], "2": ["\u52b3\u4ea7\u7387", 8], "3": ["\u51c0\u589eAUM", 10], "4": ["\u91d1\u878d\u6536\u5165", 10], "5": ["\u5546\u6237\u8d44\u4ea7", 2.5], "6": ["\u4ef7\u503c\u5ba2\u6237", 2.5], "7": ["\u5bc4\u9012\u6536\u5165", 11], "8": ["\u7279\u5feb\u6536\u5165", 10], "9": ["\u5305\u88f9\u6536\u5165", 4]};
+const C_GREEN='#1a6b4a', C_LIGHT='#3cb371', C_PALE='#b7e4c7', C_RED='#e63946', C_GOLD='#d4a017', C_BLUE='#2563eb', C_GREY='#b0c4b8';
 
-let currentTab = 'strong';
-function g(m, t, u) { var d = rankingData[m][t]; return d[u] !== undefined ? d[u] : undefined; }
+// 全局响应式字号（根据容器宽度）
+const isMobile = window.innerWidth < 600;
+const isTablet = window.innerWidth >= 600 && window.innerWidth < 1024;
+const FS_LEGEND = isMobile ? 10 : isTablet ? 11 : 12;
+const FS_TICK = isMobile ? 10 : 11;
+const FS_POINT = isMobile ? 8 : 10;
+const PAD_LEGEND = isMobile ? 8 : 12;
 
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-  render();
+// 响应式字号：根据画布宽度自动缩放
+function rfs(chart, base) {
+  const w = chart.width || 600;
+  if (w < 300) return Math.max(base - 4, 8);
+  if (w < 500) return Math.max(base - 2, 9);
+  return base;
 }
 
-function render() {
-  const data = rankingData['8月'];
-  const ranks = currentTab === 'strong' ? data.强县排名 : data.快县排名;
-  const rkType = currentTab === 'strong' ? '强县排名' : '快县排名';
-  
-  // Overview cards
-  const strongRank = g('8月', '强县排名', '深圳坪山');
-  const fastRank = g('8月', '快县排名', '深圳坪山');
-  
-  document.getElementById('overviewCards').innerHTML = `
-    <div class="card">
-      <div class="card-title">强县排名</div>
-      <div class="big-number rank-${strongRank <= 3 ? strongRank : 'other'}">#${strongRank}</div>
-      <div class="trend">
-        <div class="trend-item">5月 #${g('5月','强县排名','深圳坪山')}</div>
-        <div class="trend-item">6月 #${g('6月','强县排名','深圳坪山')}</div>
-        <div class="trend-item">7月 #${g('7月','强县排名','深圳坪山')}</div>
-        <div class="trend-item">8月 #${strongRank}</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">快县排名</div>
-      <div class="big-number rank-${fastRank <= 3 ? fastRank : 'other'}">#${fastRank}</div>
-      <div class="trend">
-        <div class="trend-item">5月 #${g('5月','快县排名','深圳坪山')}</div>
-        <div class="trend-item">6月 #${g('6月','快县排名','深圳坪山')}</div>
-        <div class="trend-item">7月 #${g('7月','快县排名','深圳坪山')}</div>
-        <div class="trend-item">8月 #${fastRank}</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">综合评价</div>
-      <div class="big-number" style="font-size: 32px; color: #10b981;">强快双优</div>
-      <div style="margin-top: 8px; color: #a1a1aa; font-size: 14px;">
-        强县第${strongRank}、快县第${fastRank}
-      </div>
-    </div>
-  `;
-  
-  // Ranking table
-  const tbody = document.querySelector('#rankingTable tbody');
-  const allUnits = Object.keys(ranks).sort((a, b) => ranks[a] - ranks[b]);
-  tbody.innerHTML = allUnits.map(unit => {
-    const r5 = g('5月', rkType, unit) || '-';
-    const r6 = g('6月', rkType, unit) || '-';
-    const r7 = g('7月', rkType, unit) || '-';
-    const r8 = ranks[unit];
-    const isPingshan = unit.includes('坪山');
-    const trend = r5 !== '-' && r8 !== '-' ? (r8 < r5 ? '↑' : r8 > r5 ? '↓' : '→') : '';
-    return `<tr class="${isPingshan ? 'highlight' : ''}">
-      <td>#${r8}</td>
-      <td>${unit}</td>
-      <td>#${r5}</td>
-      <td>#${r6}</td>
-      <td>#${r7}</td>
-      <td>#${r8}</td>
-      <td>${trend}</td>
-    </tr>`;
-  }).join('');
-  
-  // Indicator table
-  const pingshanScores = scoresData['8月']['坪山'] || {};
-  const indTbody = document.querySelector('#indicatorTable tbody');
-  indTbody.innerHTML = Object.entries(indicators).map(([idx, [name, maxScore]]) => {
-    const score = pingshanScores[idx] || 0;
-    const rate = (score / maxScore * 100).toFixed(1);
-    const badgeClass = rate >= 80 ? 'badge-gold' : rate >= 60 ? 'badge-green' : 'badge-red';
-    return `<tr>
-      <td>${name}</td>
-      <td>${maxScore}</td>
-      <td>${score.toFixed(2)}</td>
-      <td><span class="badge ${badgeClass}">${rate}%</span></td>
-    </tr>`;
-  }).join('');
-  
-  // Trend chart
-  renderChart();
-}
+// 折线图：在数据点上方显示数值（整数直接显示，小数保留2位）
+const linePointLabel = {
+  id:'linePointLabel',
+  afterDatasetsDraw(chart){
+    const fs = rfs(chart, 12);
+    const off = Math.max(8, fs);
+    const { ctx } = chart;
+    chart.data.datasets.forEach((ds, di)=>{
+      const meta = chart.getDatasetMeta(di);
+      meta.data.forEach((pt, i)=>{
+        const v = ds.data[i];
+        if (v === null || v === undefined) return;
+        const label = Number.isInteger(v) ? String(v) : Number(v).toFixed(2);
+        ctx.save();
+        ctx.font='bold '+fs+'px "PingFang SC","Microsoft YaHei",sans-serif';
+        ctx.fillStyle='#14241c';
+        ctx.textAlign='center';
+        ctx.shadowColor='rgba(255,255,255,0.95)';
+        ctx.shadowBlur=4;
+        ctx.fillText(label, pt.x, pt.y - off);
+        ctx.restore();
+      });
+    });
+  }
+};
 
-function renderChart() {
-  const ctx = document.getElementById('trendChart').getContext('2d');
-  
-  const strongRanks = [
-    g('5月','强县排名','深圳坪山'),
-    g('6月','强县排名','深圳坪山'),
-    g('7月','强县排名','深圳坪山'),
-    g('8月','强县排名','深圳坪山'),
-  ];
-  
-  const fastRanks = [
-    g('5月','快县排名','深圳坪山'),
-    g('6月','快县排名','深圳坪山'),
-    g('7月','快县排名','深圳坪山'),
-    g('8月','快县排名','深圳坪山'),
-  ];
-  
-  if (window.trendChart) window.trendChart.destroy();
-  
-  window.trendChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['5月', '6月', '7月', '8月'],
-      datasets: [
-        {
-          label: '强县排名',
-          data: strongRanks,
-          borderColor: '#f59e0b',
-          backgroundColor: 'rgba(245, 158, 11, 0.1)',
-          tension: 0.3,
-          yAxisID: 'y',
-        },
-        {
-          label: '快县排名',
-          data: fastRanks,
-          borderColor: '#10b981',
-          backgroundColor: 'rgba(16, 185, 129, 0.1)',
-          tension: 0.3,
-          yAxisID: 'y',
+// 横向柱状图：在柱子右端显示分数
+const barEndLabel = {
+  id:'barEndLabel',
+  afterDatasetsDraw(chart){
+    const fs = rfs(chart, 12);
+    const off = Math.max(4, fs - 6);
+    const { ctx } = chart;
+    chart.data.datasets.forEach((ds, di)=>{
+      const meta = chart.getDatasetMeta(di);
+      meta.data.forEach((pt, i)=>{
+        const v = ds.data[i];
+        if (v === null || v === undefined) return;
+        ctx.save();
+        ctx.font='bold '+fs+'px "PingFang SC","Microsoft YaHei",sans-serif';
+        ctx.fillStyle='#14241c';
+        ctx.textAlign='left';
+        ctx.fillText(Number(v).toFixed(2), pt.x + off, pt.y + 4);
+        ctx.restore();
+      });
+    });
+  }
+};
+
+// 雷达图：pointLabels 分段绘制，实际得分加粗（原生不支持部分加粗）
+const radarBoldScore = {
+  id:'radarBoldScore',
+  afterDatasetsDraw(chart){
+    try {
+      const r = chart.scales.r;
+      if (!r) return;
+      const ctx = chart.ctx;
+      const fs = rfs(chart, 11);
+      const font = '"PingFang SC","Microsoft YaHei",sans-serif';
+      const normal = fs+'px '+font;
+      const bold = 'bold '+fs+'px '+font;
+      const n = chart.data.labels.length;
+      const center = { x: r.xCenter, y: r.yCenter };
+      const radius = r.drawingArea + 12;
+
+      const items = typeof r._pointLabelItems === 'function' ? r._pointLabelItems() : null;
+
+      chart.data.labels.forEach((raw, i)=>{
+        const lines = String(raw).split('\n');
+        const name = lines[0] || '';
+        const m = (lines[1] || '').match(/\(([\d.]+)\s*\/\s*([\d.]+)\)/);
+        if (!m) return;
+        const score = m[1], total = m[2];
+
+        let x, y, align;
+        if (items && items[i]) {
+          x = items[i].x; y = items[i].y; align = items[i].textAlign || 'center';
+        } else {
+          const angle = (i / n) * Math.PI * 2 - Math.PI / 2;
+          x = center.x + radius * Math.cos(angle);
+          y = center.y + radius * Math.sin(angle);
+          align = 'center';
         }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { labels: { color: '#e4e4e7' } }
-      },
-      scales: {
-        y: {
-          reverse: true,
-          min: 1,
-          max: 12,
-          ticks: { color: '#a1a1aa', stepSize: 1 },
-          grid: { color: 'rgba(255,255,255,0.05)' }
-        },
-        x: {
-          ticks: { color: '#a1a1aa' },
-          grid: { color: 'rgba(255,255,255,0.05)' }
-        }
+
+        const segs = [
+          { text: name + ' (', font: normal },
+          { text: score, font: bold },
+          { text: ' / ' + total + ')', font: normal }
+        ];
+        ctx.save();
+        ctx.textBaseline='middle';
+        ctx.fillStyle='#14241c';
+        let totalW = 0;
+        segs.forEach(s=>{ ctx.font = s.font; totalW += ctx.measureText(s.text).width; });
+
+        let sx;
+        if (align === 'left') sx = x;
+        else if (align === 'right') sx = x - totalW;
+        else sx = x - totalW / 2;
+
+        segs.forEach(s=>{
+          ctx.font = s.font;
+          ctx.fillText(s.text, sx, y);
+          sx += ctx.measureText(s.text).width;
+        });
+        ctx.restore();
+      });
+    } catch(e) {
+      console.error('radarBoldScore plugin error', e);
+    }
+  }
+};
+
+// ===== 月度排名趋势 =====
+new Chart(document.getElementById('rankTrendChart').getContext('2d'), {
+  type:'line',
+  plugins:[linePointLabel],
+  data:{
+    labels:['3月','4月','5月','6月','7月','8月'],
+    datasets:[
+      { label:'强县榜排名', data:[2,6,3,4,3,3], borderColor:C_GREEN, backgroundColor:'rgba(26,107,74,0.1)', fill:true, tension:.3, pointRadius:FS_POINT, pointBackgroundColor:C_GREEN, borderWidth:2.5 },
+      { label:'快县榜排名', data:[1,2,1,1,2,3], borderColor:C_RED, backgroundColor:'rgba(230,57,70,0.08)', fill:true, tension:.3, pointRadius:FS_POINT, pointBackgroundColor:C_RED, borderWidth:2.5 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:FS_LEGEND},padding:PAD_LEGEND}}, tooltip:{callbacks:{label:c=>c.dataset.label+': 第'+c.parsed.y+'名'}} },
+    scales:{
+      y:{ reverse:true, min:0, max:13, ticks:{stepSize:2,font:{size:FS_TICK},callback:v=>'第'+v+'名'}, grid:{color:'#eef2f0'} },
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// ===== 月度总分趋势 =====
+new Chart(document.getElementById('scoreTrendChart').getContext('2d'), {
+  type:'line',
+  plugins:[linePointLabel],
+  data:{
+    labels:['3月','4月','5月','6月','7月'],
+    datasets:[
+      { label:'强县总分', data:[64.87,59.28,67.19,64.97,68.14,70.09], borderColor:C_GREEN, backgroundColor:'rgba(26,107,74,0.1)', fill:true, tension:.3, pointRadius:FS_POINT, pointBackgroundColor:C_GREEN, borderWidth:2.5 },
+      { label:'快县总分', data:[56.34,55.89,76.42,77.13,61.76,48.83], borderColor:C_RED, backgroundColor:'rgba(230,57,70,0.08)', fill:true, tension:.3, pointRadius:FS_POINT, pointBackgroundColor:C_RED, borderWidth:2.5 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:FS_LEGEND},padding:PAD_LEGEND}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+'分'}} },
+    scales:{
+      y:{ min:40, max:85, ticks:{font:{size:FS_TICK},callback:v=>v+'分'}, grid:{color:'#eef2f0'} },
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// ===== 7月C组排名柱状图 =====
+function rankChart(id, data, desc) {
+  // 传入数据已按总分从高到低排列；横向柱状图首项显示在顶部，直接使用即可
+  const sorted = [...data];
+  new Chart(document.getElementById(id).getContext('2d'), {
+    type:'bar',
+    plugins:[barEndLabel],
+    data:{ labels:sorted.map(d=>d.name), datasets:[{ data:sorted.map(d=>d.score), backgroundColor:sorted.map(d=>d.name==='坪山'?C_RED:C_GREEN), borderRadius:5, maxBarThickness:isMobile?20:30 }] },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>'总分: '+c.parsed.x.toFixed(2)}} },
+      scales:{
+        x:{ beginAtZero:true, grid:{color:'#eef2f0'}, ticks:{font:{size:FS_TICK}} },
+        y:{ ticks:{font:{size:FS_LEGEND},callback:function(v,i){const n=sorted[i].name;return n==='坪山'?'▶ '+n:n;}}, grid:{display:false} }
       }
     }
   });
 }
+rankChart('strongRank7', [
+  {name:'罗定',score:72.25},{name:'阳春',score:70.93},{name:'坪山',score:70.09},
+  {name:'阳江城区',score:65.71},{name:'花都',score:65.18},{name:'兴宁',score:64.66},
+  {name:'遂溪',score:63.44},{name:'湛江城区',score:60.33},{name:'东莞城区',score:60.17},
+  {name:'福田',score:59.36},{name:'揭东',score:56.03},{name:'潮安',score:54.87}
+]);
+rankChart('fastRank7', [
+  {name:'揭东',score:67.02},{name:'花都',score:51.71},{name:'坪山',score:48.83},
+  {name:'遂溪',score:39.23},{name:'福田',score:39.13},{name:'潮安',score:38.36},
+  {name:'兴宁',score:37.02},{name:'东莞城区',score:32.74},{name:'阳江城区',score:32.44},
+  {name:'湛江城区',score:28.43},{name:'阳春',score:27.07},{name:'罗定',score:44.63}
+]);
 
-render();
+// ===== 7月雷达图 =====
+function radar(id, labels, psData, avgData, maxData) {
+  new Chart(document.getElementById(id).getContext('2d'), {
+    type:'radar',
+    plugins:[radarBoldScore],
+    data:{ labels:labels, datasets:[
+      { label:'坪山', data:psData, borderColor:C_RED, backgroundColor:'rgba(230,57,70,0.12)', pointBackgroundColor:C_RED, pointRadius:isMobile?3:4, borderWidth:2 },
+      { label:'C组均值', data:avgData, borderColor:C_GREEN, backgroundColor:'rgba(26,107,74,0.08)', pointBackgroundColor:C_GREEN, pointRadius:isMobile?2:3, borderWidth:2, borderDash:[5,4] }
+    ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{position:'bottom',labels:{font:{size:FS_LEGEND},padding:PAD_LEGEND}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.r.toFixed(2)+'分'}} },
+      scales:{ r:{ beginAtZero:true, suggestedMax:Math.max(...maxData), grid:{color:'#e0e8e4'}, angleLines:{color:'#e0e8e4'}, pointLabels:{display:false}, ticks:{display:false,stepSize:isMobile?3:2} } }
+    }
+  });
+}
+radar('strongRadar7',
+  ['利润\n(9.91/20)','收入\n(11.26/12)','AUM\n(3.03/10)','金融收入\n(5.33/10)','商户\n(2.50/2.5)','价值客户\n(1.19/2.5)','寄递\n(9.06/11)','特快\n(8.67/10)','快递包裹\n(2.17/4)','函件集邮\n(0.54/3)','融资E\n(2.89/3)','农产品寄递\n(1.00/1)'],
+  [9.91,11.26,3.03,5.33,2.50,1.19,9.06,8.67,2.17,0.54,2.89,1.00],
+  [10.06,10.58,5.80,6.36,1.26,1.42,5.98,5.64,1.47,0.78,2.24,0.49],
+  [20,12,10,10,2.5,2.5,11,10,4,3,3,1]
+);
+radar('fastRadar7',
+  ['利润增幅\n(1.39/20)','收入增幅\n(10.17/12)','AUM增幅\n(5.08/10)','金融收入增幅\n(1.81/10)','商户增幅\n(2.33/2.5)','价值客户增幅\n(1.68/2.5)','寄递增幅\n(4.66/11)','特快增幅\n(10.00/10)','快递包裹增幅\n(0.40/4)','函件集邮增幅\n(0.06/3)'],
+  [1.39,10.17,5.08,1.81,2.33,1.68,4.66,10.00,0.40,0.06],
+  [2.33,5.00,7.85,5.23,1.47,1.62,3.40,2.95,1.03,0.00],
+  [20,12,10,10,2.5,2.5,11,10,4,3]
+);
+
+// ===== 强县关键指标月度趋势 =====
+new Chart(document.getElementById('strongTrendChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels:['3月','4月','5月','6月','7月','8月'],
+    datasets:[
+      {label:'利润(20)',data:[11.65,10.37,9.90,9.90,10.62,9.91],borderColor:C_GREEN,borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'收入(12)',data:[11.31,10.81,11.19,11.25,11.38,11.26],borderColor:C_BLUE,borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'AUM(10)',data:[6.22,2.63,3.39,3.69,2.81,3.03],borderColor:C_RED,borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'寄递(11)',data:[9.14,8.74,8.76,8.96,8.97,9.06],borderColor:'#8b5cf6',borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'特快(10)',data:[8.64,8.70,9.26,9.24,8.98,8.67],borderColor:C_GOLD,borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'商户(2.5)',data:[0.29,0.44,0.53,0.63,1.35,2.50],borderColor:'#ec4899',borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'快递包裹(4)',data:[2.72,2.48,2.24,2.10,2.08,2.17],borderColor:'#6b7280',borderWidth:2,tension:.3,pointRadius:isMobile?2:3,borderDash:[4,3]},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:FS_LEGEND},padding:PAD_LEGEND,usePointStyle:true,pointStyle:'circle'}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+'分'}} },
+    scales:{ y:{beginAtZero:true,ticks:{font:{size:FS_TICK}},grid:{color:'#eef2f0'}}, x:{grid:{display:false}} }
+  }
+});
+
+// ===== 快县关键指标月度趋势 =====
+new Chart(document.getElementById('fastTrendChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels:['3月','4月','5月','6月','7月','8月'],
+    datasets:[
+      {label:'利润增幅(20)',data:[2.43,7.40,17.11,17.11,7.16,1.39],borderColor:C_GREEN,borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'收入增幅(12)',data:[9.15,9.68,11.02,12.00,12.00,10.17],borderColor:C_BLUE,borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'AUM增幅(10)',data:[9.41,4.11,4.88,5.90,4.72,5.08],borderColor:C_RED,borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'寄递增幅(11)',data:[9.38,8.14,8.44,6.17,6.31,4.66],borderColor:'#8b5cf6',borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+      {label:'特快增幅(10)',data:[10.00,10.00,10.00,10.00,10.00,10.00],borderColor:C_GOLD,borderWidth:2.5,tension:.3,pointRadius:isMobile?3:4},
+      {label:'金融收入增幅(10)',data:[7.49,4.70,7.36,8.90,7.58,1.81],borderColor:'#ec4899',borderWidth:2,tension:.3,pointRadius:isMobile?2:3},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{size:FS_LEGEND},padding:PAD_LEGEND,usePointStyle:true,pointStyle:'circle'}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+'分'}} },
+    scales:{ y:{beginAtZero:true,ticks:{font:{size:FS_TICK}},grid:{color:'#eef2f0'}}, x:{grid:{display:false}} }
+  }
+});
+
+// ===== 得分明细表 =====
+function fillTable(tbodyId, items) {
+  const tb = document.getElementById(tbodyId);
+  let html = '';
+  items.forEach(it => {
+    const rate = (it.ps / it.max * 100).toFixed(0);
+    const gap = it.ps - it.avg;
+    const gapClass = gap >= 0 ? 'gap-pos' : 'gap-neg';
+    const gapStr = (gap >= 0 ? '+' : '') + gap.toFixed(2);
+    const barColor = gap >= 0 ? C_GREEN : C_RED;
+    const barW = Math.min(rate, 100);
+    // 趋势：仅比较最近4个月（5/6/7/8月）
+    const trend3 = it.trend.slice(-4);
+    const first = trend3[0], last = trend3[trend3.length-1];
+    const diff = last - first;
+    const trendIcon = diff > 0.1 ? '<span class="trend-up">↗</span>' : diff < -0.1 ? '<span class="trend-dn">↘</span>' : '<span style="color:#999">→</span>';
+    html += `<tr class="${it.highlight?'ps':''}">
+      <td>${it.name}</td><td>${it.max}</td><td><strong>${it.ps.toFixed(2)}</strong></td><td>${it.avg.toFixed(2)}</td>
+      <td>${trend3[0]!=null?trend3[0].toFixed(2):'-'}</td><td>${trend3[1]!=null?trend3[1].toFixed(2):'-'}</td>
+      <td>${trend3[2]!=null?trend3[2].toFixed(2):'-'}</td><td>${trend3[3]!=null?trend3[3].toFixed(2):'-'}</td>
+      <td>${trendIcon}</td>
+      <td class="${gapClass}">${gapStr}</td>
+    </tr>`;
+  });
+  tb.innerHTML = html;
+}
+
+fillTable('strongTable7', [
+  {name:'1.利润绝对值',max:20,ps:9.91,avg:10.06,trend:[11.65,10.37,9.90,9.90,10.62,9.91],highlight:false},
+  {name:'2.收入完成绝对值',max:12,ps:11.26,avg:10.58,trend:[11.31,10.81,11.19,11.25,11.38,11.26],highlight:true},
+  {name:'4.净增AUM',max:10,ps:3.03,avg:5.80,trend:[6.22,2.63,3.39,3.69,2.81,3.03],highlight:false},
+  {name:'5.金融收入规模',max:10,ps:5.33,avg:6.36,trend:[5.19,4.94,5.42,5.43,5.47,5.33],highlight:false},
+  {name:'6.商户净增总资产',max:2.5,ps:2.50,avg:1.26,trend:[0.29,0.44,0.53,0.63,1.35,2.50],highlight:true},
+  {name:'7.净增价值客户数',max:2.5,ps:1.19,avg:1.42,trend:[0.56,0.05,0.14,0.41,0.72,1.19],highlight:false},
+  {name:'8.寄递收入',max:11,ps:9.06,avg:5.98,trend:[9.14,8.74,8.76,8.96,8.97,9.06],highlight:true},
+  {name:'9.国内特快收入',max:10,ps:8.67,avg:5.64,trend:[8.64,8.70,9.26,9.24,8.98,8.67],highlight:true},
+  {name:'10.快递包裹收入',max:4,ps:2.17,avg:1.47,trend:[2.72,2.48,2.24,2.10,2.08,2.17],highlight:false},
+  {name:'11.函件+集邮+报刊',max:3,ps:0.54,avg:0.78,trend:[0.61,0.61,0.60,0.59,0.57,0.54],highlight:false},
+  {name:'14.融资E年日均余额',max:3,ps:2.89,avg:2.24,trend:[2.84,2.88,2.90,2.83,2.90,2.89],highlight:true},
+  {name:'15.农产品寄递收入',max:1,ps:1.00,avg:0.49,trend:[0.48,0.57,0.65,0.79,0.96,1.00],highlight:true},
+]);
+
+fillTable('fastTable7', [
+  {name:'1.利润增幅',max:20,ps:1.39,avg:2.33,trend:[2.43,7.40,17.11,17.11,7.16,1.39],highlight:true},
+  {name:'2.收入增幅',max:12,ps:10.17,avg:5.00,trend:[9.15,9.68,11.02,12.00,12.00,10.17],highlight:true},
+  {name:'4.AUM规模增幅',max:10,ps:5.08,avg:7.85,trend:[9.41,4.11,4.88,5.90,4.72,5.08],highlight:false},
+  {name:'5.金融收入增幅',max:10,ps:1.81,avg:5.23,trend:[7.49,4.70,7.36,8.90,7.58,1.81],highlight:true},
+  {name:'5.商户总资产增幅',max:2.5,ps:2.33,avg:1.47,trend:[0.30,0.34,0.43,0.66,1.45,2.33],highlight:false},
+  {name:'6.价值客户数增幅',max:2.5,ps:1.68,avg:1.62,trend:[0.70,0.26,0.17,0.60,1.18,1.68],highlight:false},
+  {name:'8.寄递收入增幅',max:11,ps:4.66,avg:3.40,trend:[9.38,8.14,8.44,6.17,6.31,4.66],highlight:true},
+  {name:'9.国内特快收入增幅',max:10,ps:10.00,avg:2.95,trend:[10.00,10.00,10.00,10.00,10.00,10.00],highlight:true},
+  {name:'10.快递包裹收入增幅',max:4,ps:0.40,avg:1.03,trend:[0.70,0.60,0.69,0.77,0.70,0.40],highlight:false},
+  {name:'11.集邮+函件+报刊增幅',max:3,ps:0.06,avg:0.00,trend:[2.30,2.34,2.01,2.12,1.51,0.06],highlight:false},
+]);
 </script>
-</body>
-</html>
+
+
+</body></html>

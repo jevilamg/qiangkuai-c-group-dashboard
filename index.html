@@ -200,6 +200,8 @@ tbody tr.ps:hover { background:#c9e9d8; }
 .rate-org{color:#d4a017;font-weight:800}
 .rate-grn{color:#1a6b4a;font-weight:800}
 .mini-note{font-size:12px;color:#8a9d94;margin-top:8px;line-height:1.7}
+.chart-wrap.xl{height:620px}
+@media(max-width:768px){.chart-wrap.xl{height:560px}}
 .alert-box{background:linear-gradient(135deg,#fff5f5,#fff);border:1px solid #ffd0d0;border-radius:12px;padding:14px 16px;margin-bottom:14px}
 .alert-box .t{font-size:14px;font-weight:800;color:#c1121f;margin-bottom:8px}
 .alert-box .c{font-size:13.5px;color:#3d4f47;line-height:1.85}
@@ -319,9 +321,9 @@ tbody tr.ps:hover { background:#c9e9d8; }
   <!-- ========== T2 强县榜 ========== -->
   <div class="panel">
     <div class="chart-card">
-      <div class="title">10月强县指标雷达 · 坪山 vs C组均值</div>
-      <div class="desc">12项核心指标，红线为坪山，虚线为C组12区县均值；外圈为满分</div>
-      <div class="chart-wrap tall"><canvas id="strongRadarChart"></canvas></div>
+      <div class="title">10月强县 · 15项得分结构（按得分率从低到高）</div>
+      <div class="desc">上方为短板、下方为优势。彩条为坪山得分，灰底为满分，<span style="color:#2563eb;font-weight:700">蓝色虚线为C组均值</span>；条越长、颜色越绿说明该项越强</div>
+      <div class="chart-wrap xl"><canvas id="strongScoreChart"></canvas></div>
     </div>
     <div class="table-card">
       <div class="title">10月强县榜 · 坪山各项得分明细</div>
@@ -337,9 +339,9 @@ tbody tr.ps:hover { background:#c9e9d8; }
   <!-- ========== T3 快县榜 ========== -->
   <div class="panel">
     <div class="chart-card">
-      <div class="title">10月快县指标雷达 · 坪山 vs C组均值</div>
-      <div class="desc">10项增幅指标，红线为坪山，虚线为C组12区县均值；外圈为满分</div>
-      <div class="chart-wrap tall"><canvas id="fastRadarChart"></canvas></div>
+      <div class="title">10月快县 · 15项得分结构（按得分率从低到高）</div>
+      <div class="desc">上方为短板、下方为优势。彩条为坪山得分，灰底为满分，<span style="color:#2563eb;font-weight:700">蓝色虚线为C组均值</span>；条越长、颜色越绿说明该项越强</div>
+      <div class="chart-wrap xl"><canvas id="fastScoreChart"></canvas></div>
     </div>
     <div class="table-card">
       <div class="title">10月快县榜 · 坪山各项得分明细</div>
@@ -707,32 +709,81 @@ const SHORT = {profit:'利润',rev:'收入',aum:'AUM',fin:'金融收入',mer:'�
   post:'寄递',ems:'特快',pkg:'包裹',mail:'函集报',rz:'融资E',agpost:'农产品寄递',
   vsind:'寄递vs行业',vsgdp:'收入vsGDP'};
 
-function radarChart(id, keys, ind, units, ps){
-  var labels=[], psD=[], avgD=[], maxD=[];
-  keys.forEach(function(k){
-    var it = ind.filter(function(x){return x[0]===k;})[0];
-    if(!it) return;
-    var mx = it[2], s = ps.s[k]||0;
+// 组均值竖线标记插件
+const avgLine = {
+  id:'avgLine',
+  afterDatasetsDraw: function(chart, args, opts){
+    var vals = (opts && opts.values) || [];
+    if(!vals.length) return;
+    var ctx = chart.ctx, xScale = chart.scales.x;
+    var meta = chart.getDatasetMeta(1);
+    if(!meta || !meta.data) return;
+    ctx.save();
+    ctx.strokeStyle = '#2563eb';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4,3]);
+    meta.data.forEach(function(el, i){
+      var v = vals[i];
+      if(v===undefined||v===null||isNaN(v)) return;
+      var x = xScale.getPixelForValue(v);
+      var y = el.y, h = (el.height || 16) / 2 + 3;
+      ctx.beginPath();
+      ctx.moveTo(x, y - h);
+      ctx.lineTo(x, y + h);
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+};
+
+// 得分结构子弹图：满分灰底 + 坪山彩条 + 组均虚线
+function scoreChart(id, ind, units, ps){
+  var arr = ind.map(function(it){
+    var k=it[0], nm=it[1], mx=it[2], s=ps.s[k]||0;
     var sum=0, n=0;
     for(var u in units){ if(units[u].s[k]!==undefined){ sum+=units[u].s[k]; n++; } }
-    labels.push(SHORT[k]+'\n('+s.toFixed(2)+'/'+mx+')');
-    psD.push(s); avgD.push(n?sum/n:0); maxD.push(mx);
-  });
+    return {nm:nm, mx:mx, s:s, avg:n?sum/n:0, rate:mx?s/mx:0, rk:rankOf(units,k,s)};
+  }).sort(function(a,b){ return a.rate - b.rate; });
+
+  var colors = arr.map(function(d){ return d.rate>=0.8?'#1a6b4a':(d.rate>=0.5?'#d4a017':'#e63946'); });
+  var nUnits = Object.keys(units).length;
+
   mk(id, {
-    type:'radar', plugins:[radarBoldScore],
-    data:{ labels:labels, datasets:[
-      { label:'坪山', data:psD, borderColor:C_RED, backgroundColor:'rgba(230,57,70,0.12)', pointBackgroundColor:C_RED, pointRadius:isMobile?3:4, borderWidth:2 },
-      { label:'C组均值', data:avgD, borderColor:C_GREEN, backgroundColor:'rgba(26,107,74,0.08)', pointBackgroundColor:C_GREEN, pointRadius:isMobile?2:3, borderWidth:2, borderDash:[5,4] }
-    ]},
-    options:{ responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{position:'bottom',labels:{font:{size:FS_LEGEND},padding:PAD_LEGEND}},
-        tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.r.toFixed(2)+'分';}}} },
-      scales:{ r:{beginAtZero:true, suggestedMax:Math.max.apply(null,maxD), grid:{color:'#e0e8e4'}, angleLines:{color:'#e0e8e4'}, pointLabels:{display:false}, ticks:{display:false,stepSize:isMobile?3:2}} }
+    type:'bar',
+    plugins:[avgLine],
+    data:{
+      labels: arr.map(function(d){ return [d.nm, d.s.toFixed(2)+' / '+d.mx]; }),
+      datasets:[
+        { label:'满分', data:arr.map(function(d){return d.mx;}), backgroundColor:'#eef2f0', borderRadius:3,
+          maxBarThickness:isMobile?14:20, barPercentage:0.9, categoryPercentage:0.92 },
+        { label:'坪山得分', data:arr.map(function(d){return d.s;}), backgroundColor:colors, borderRadius:3,
+          maxBarThickness:isMobile?14:20, barPercentage:0.9, categoryPercentage:0.92 }
+      ]
+    },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      layout:{ padding:{ right: isMobile?4:10 } },
+      plugins:{
+        legend:{ display:true, position:'bottom', labels:{ font:{size:FS_LEGEND}, padding:PAD_LEGEND,
+          filter:function(item){ return item.text!=='满分'; } } },
+        avgLine:{ values: arr.map(function(d){return d.avg;}) },
+        tooltip:{ callbacks:{ label:function(c){
+          var d = arr[c.dataIndex];
+          if(c.datasetIndex===1){
+            return '坪山 '+d.s.toFixed(2)+'/'+d.mx+' · 得分率'+(d.rate*100).toFixed(1)+'% · 组内第'+d.rk+'/'+nUnits+'名 · 组均'+d.avg.toFixed(2);
+          }
+          return '满分 '+d.mx+' 分';
+        }}}
+      },
+      scales:{
+        x:{ beginAtZero:true, grid:{color:'#eef2f0'}, ticks:{font:{size:FS_TICK}} },
+        y:{ grid:{display:false}, ticks:{ font:{size:isMobile?9:11, lineHeight:1.25}, color:'#3d4f47' } }
+      }
     }
   });
 }
-radarChart('strongRadarChart', RADAR_S, S.ind, SU, psS);
-radarChart('fastRadarChart', RADAR_F, F.ind, FU, psF);
+scoreChart('strongScoreChart', S.ind, SU, psS);
+scoreChart('fastScoreChart', F.ind, FU, psF);
 
 // ==================== 5. 前四安全垫分解 ====================
 (function(){
